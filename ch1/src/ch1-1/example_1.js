@@ -1,5 +1,4 @@
 import {Component, useState} from "react";
-import {render} from "react-dom";
 
 // const Counter =()=>{
 //
@@ -63,8 +62,6 @@ class Counter extends  Component{
     render(){
         return(
             <main>
-
-
                 <h1>{this.state.num}</h1>
                 <button onClick={this.plus}>+</button>
                 <button onClick={this.minus}>-</button>

@@ -67,6 +67,13 @@ DOM의 각 노드는 요소를 나타냅니다.
 |    Class 구성 요소 내에서 다른 구문이 필요    | 다른 구문이 필요하지않고 <br/>쉽게 상태 저장을 만듬 |
 
 
+![img_6.png](img_6.png)
+
+
+---------------------------------------
+![img_7.png](img_7.png)
+
+
 ## Class Component
 
 
@@ -122,17 +129,162 @@ const Counter =()=>{
 
 # Render()
 
-## Render (element , container , callback)
+### Render (element , container , callback)
 
-- Element : 랜더링 될 JSX 표현식
-- container : 요소가 랜더링되는 컨테이너
-- callback : 추가적인 콜백함수 
+- `Element` : 랜더링 될 JSX 표현식
+- `container` : 요소가 랜더링되는 컨테이너
+- `callback` : 추가적인 콜백함수 
 
 
 => 전달한 컨테이너 노드를 제어합니다.
 처음 호출 할때 기존의 DOM 요소를 교체하고 이후 호출은 React의 DOM diff 알고리즘을 사용해서 업데이트합니다.
 
 
+# createRoot
+
+- Render()와 같은 역할을 하고 있는 메서드
+
+
+# Hydrate()
+
+### hydrate ( element , container , callback)
+- Render () 와 동일
+- 서버 측 랜더링을 위해서 구현 
+
+# findDOMNode()
+### findDOMNode (component)
+- 매개 변수로 전달받은 컴포넌트가 DOM 내부에 마운트되었다면 컴포넌트에 해당하는 브라우저의 DOM 요소를 반환합니다. 
+- 주로 DOM 값을 읽을 때 유용 => 대부분의 경우 ref를 사용하기 때문에 findMode는 사용할 필요가 없습니다.
+
+# creratePortal()
+### createPortal ( child , container )
+
+- `Child` : 이 매개변수는 JSX 표현식 또는 React 구성 요소가 랜더링 될 것으로 예상 됩니다.
+
+- `Container` : 이 매개변수는 요소가 랜더링 되어야 하는 컨테이너를 예상합니다.
+
+
+# unmountComponentAtNode()
+
+### unmountComponentAtNode ( container )
+- `Parameters` : 이 메서드는 React 구성요소를 제거해야 하는 DOM 컨테이너를 예상하는 매개변수 컨테이너를 사용합니다.
+
+
+
+
+
+# React Life Cycle
+생명주기 메서드는 컴포넌트가 Browser 상에 나타날때 업데이트 되고 사라지게 될 때 호출되는 메서드들 입니다.
+
+생명주기 메서드는 Class 형에서만 쓸 수 있는데 클래스를 사용하지 않는다면 굳이 필요하지 않는 메서드들이라서 동작원리만 알아두면 됩니다.
+
+
+![img_9.png](img_9.png)
+
+
+
+
+## Mount
+
+* **Constrcutor** <br>
+컴포넌트가 만들어지면 가장 먼저 실행되는 메서드 입니다.
+
+
+* **getDerivedStateFromProps** <br>
+getDerivedStateFromProps는 props로 받아온 것을 state에 넣어주고 싶을 때 사용합니다.
+
+
+* **Render** <br>
+  랜더링하는 메서드
+
+
+* **componentDidMount** <br>
+컴포넌트의 첫 렌더링이 끝나고 나면 호출되는 메서드이고 우리가 만든 컴포넌트가 화면에 나타난 상태가 됩니다.
+
+
+
+## updateMount 
+getDriveStateFromProps를 통해서 컴포넌트의 props나 state가 바뀌었을때도 이 메서드가 호출이 됩니다.
+
+
+* **shouldComponentUpdate** <br>
+이 메서드는 리랜더링하는 메서드입니다.
+주로 최적화 할때 사용합니다.
+
+
+* **Render** <br>
+랜더링하는 메서드
+
+
+* **GetSnapshotBeforeUpdate** <br>
+컴포넌트에 변화가 일어나기 전에 DOM 상태를 가져와서 특정 값을 반환하면 그 다음 발생하게 되는 componentDidUpdate 함수에서 받아와서
+사용을 할 수 있다.
+
+
+* **componentDidUpdate** <br>
+화면에 우리가 원하는 변화가 모두 반영되고 난 뒤 호출되는 메서드
+
+## componenetWillUnMount
+컴포넌트를 제거하고 DOM 이벤트를 전부 제거합니다.
+
+
+
+
+# WebPack
+
+![img_11.png](img_11.png)
+
+
+여러개 파일을 하나로 묶어주는 역할
+즉 여러개로 나눠진 .js 파일을 html이 실행할 수 있는 하나의 .js파일로 합침
+
+## why?
+많은 파일을 다운 받으면 Network 부하가 커지고 같은 이름의 변수나 함수로 충돌 가능성이 있음
+
+
+
+
+# WebPack 설치 
+
+## 1. npm init <br>
+리액트에 필요한 모든 패키지들을 넣는 package.json 파일 생성
+
+
+## 2. npm i react react-dom
+리액트를 사용하기 위해서는 react 패키지랑 , react-dom 패키지가 필요하니 바로 설치 진행
+
+## 3. npm i -D webpack webpack-cli
+바로 웹팩을 설치해주는데 (-D) 는 실제 서비스할때 웹팩이 필요가 없고 개발할때만 필요하기 때문에 개발용으로 설치하겠다는 의미
+
+## 4. 패키지 가져오기
+
+파일 2개 생성
+
+<span style ="color:red">webpack.config.js , client.js</span>
+
+그다음 npm (require) 로 해당 패키지 2개 react , react-dom 패키지를 가져온다.
+이렇게하면 index.html에 따로 스크립트 선언을 안해도 됩니다. React와  react-dom을 사용 
+그리고 index.html 파일에 기본 리액트 세팅을 해줍니다.
+
+
+<img src="img_12.png" width="400">
+
+
+## 5. 파일 분리
+
+그 다음 파일 분리를 해줘야합니다. <br>
+
+## why?
+같은 파일에 예를 들어서 컴포넌트가 2만개가 있다고 하면 유지보수가 힘들기 때문에 webPackTest라고 하는 파일을 만들어서 npm으로 가져와 줍니다.
+즉 require webPackTest 파일만 가져와서 사용하겠다는 의미.
+
+
+## client.js
+<img src="img_13.png" width="400">
+
+## webPackTest.js
+
+<img src="img_15.png" width="400">
 
 
 ### `npm start`
