@@ -1,8 +1,8 @@
 # ch1
 
 # 탄생 배경
-![img.png](img.png)
 
+![img_1.png](img_1.png)
 이벤트 핸들러가 많아지게 된다면 그림과 같은 구조가 되고 복잡해지게 됩니다.
 이러한 요소가 많을 수록 페이지의 실행 속도는 느려지게 되고 성능상에 좋지않는 영향을 끼치게 됩니다.
 
@@ -11,7 +11,9 @@ DOM 속성이 바뀌도록 연결을 해줘서 업데이트 하는 작업을 간
 
 
 # Virtual DOM
-![img_2.png](img_2.png)
+
+<img src="./src/ch1-1/img/img_1.png">
+
 리액트는 DOM을 직접 건드리는 작업은 번거롭다 판단을 해서 규칙을 정하는 것이 아니라,
 DOM을 전부 날리고 다시 새로 만들어서 보여주자는 발상으로 만들어지게 되었다.
 
@@ -25,9 +27,16 @@ DOM을 전부 날리고 다시 새로 만들어서 보여주자는 발상으로 
 1. React는 원본 DOM의 복사본인 가상 DOM을 생성합니다.
 DOM의 각 노드는 요소를 나타냅니다.
 
+<br>
+
+
 2. 다음으로 요소 상태 업데이트가 있으면 복사본 DOM에서 새로운 가상 DOM이 생성됩니다.
 
+<br>
+
 3. `diffing 알고리즘`을 통해서 변화를 식별
+
+<br>
 
 4. 마지막으로 변화된 요소들을 찾으면 `Origin DOM`을 업데이트 합니다.
 
@@ -37,13 +46,16 @@ DOM의 각 노드는 요소를 나타냅니다.
 
     => 리액트는 `여러 컴포넌트 조각`으로 되어 있음
 
+<br>
 
 - 레고 블럭이라고 생각하면 쉽습니다.
 
 
+<br>
+
 - 재사용성 용이
 
-![img_3.png](img_3.png)
+<img src="src/ch1-1/img/img_3.png">
 
 
 
@@ -51,7 +63,7 @@ DOM의 각 노드는 요소를 나타냅니다.
 - 메뉴 컴포넌트 , 프로필 컴포넌트 , 검색 컴포넌트가 하나로 모여서 
 하나의 `Web`이 완성이 됩니다.
 
-![img_4.png](img_4.png)
+<img src="src/ch1-1/img/img_4.png">
 
 
 
@@ -67,11 +79,6 @@ DOM의 각 노드는 요소를 나타냅니다.
 |    Class 구성 요소 내에서 다른 구문이 필요    | 다른 구문이 필요하지않고 <br/>쉽게 상태 저장을 만듬 |
 
 
-![img_6.png](img_6.png)
-
-
----------------------------------------
-![img_7.png](img_7.png)
 
 
 ## Class Component
@@ -105,7 +112,7 @@ class Counter extends  Component {
 
 
 ```
-
+---------------------------------------------
 
 ## Functional Component
 
@@ -153,7 +160,10 @@ const Counter =()=>{
 
 # findDOMNode()
 ### findDOMNode (component)
-- 매개 변수로 전달받은 컴포넌트가 DOM 내부에 마운트되었다면 컴포넌트에 해당하는 브라우저의 DOM 요소를 반환합니다. 
+- 매개 변수로 전달받은 컴포넌트가 DOM 내부에 마운트되었다면 컴포넌트에 해당하는 브라우저의 DOM 요소를 반환합니다.
+
+<br>
+
 - 주로 DOM 값을 읽을 때 유용 => 대부분의 경우 ref를 사용하기 때문에 findMode는 사용할 필요가 없습니다.
 
 # creratePortal()
@@ -179,7 +189,8 @@ const Counter =()=>{
 생명주기 메서드는 Class 형에서만 쓸 수 있는데 클래스를 사용하지 않는다면 굳이 필요하지 않는 메서드들이라서 동작원리만 알아두면 됩니다.
 
 
-![img_9.png](img_9.png)
+
+<img src="src/ch1-1/img/img_9.png">
 
 
 
@@ -198,9 +209,9 @@ getDerivedStateFromProps는 props로 받아온 것을 state에 넣어주고 싶�
   랜더링하는 메서드
 
 
+
 * **componentDidMount** <br>
 컴포넌트의 첫 렌더링이 끝나고 나면 호출되는 메서드이고 우리가 만든 컴포넌트가 화면에 나타난 상태가 됩니다.
-
 
 
 ## updateMount 
@@ -224,36 +235,49 @@ getDriveStateFromProps를 통해서 컴포넌트의 props나 state가 바뀌었�
 * **componentDidUpdate** <br>
 화면에 우리가 원하는 변화가 모두 반영되고 난 뒤 호출되는 메서드
 
+
 ## componenetWillUnMount
 컴포넌트를 제거하고 DOM 이벤트를 전부 제거합니다.
 
 
-
+<br>
 
 # WebPack
 
-![img_11.png](img_11.png)
 
+<img src="src/ch1-1/img/img_11.png">
+
+
+### 웹펙이란?
 
 여러개 파일을 하나로 묶어주는 역할
-즉 여러개로 나눠진 .js 파일을 html이 실행할 수 있는 하나의 .js파일로 합침
+즉 여러개로 나눠진 .js 파일을 html이 실행할 수 있는 하나의 .js파일로 합치는 라이브러리
 
 ## why?
 많은 파일을 다운 받으면 Network 부하가 커지고 같은 이름의 변수나 함수로 충돌 가능성이 있음
 
 
 
+<br>
 
-# WebPack 설치 
+
+# WebPack
 
 ## 1. npm init <br>
+
+``npm init``
+
 리액트에 필요한 모든 패키지들을 넣는 package.json 파일 생성
 
 
 ## 2. npm i react react-dom
+``npm i react react-dom``
+
 리액트를 사용하기 위해서는 react 패키지랑 , react-dom 패키지가 필요하니 바로 설치 진행
 
 ## 3. npm i -D webpack webpack-cli
+``npm i -D webpack webpack-cli``
+
 바로 웹팩을 설치해주는데 (-D) 는 실제 서비스할때 웹팩이 필요가 없고 개발할때만 필요하기 때문에 개발용으로 설치하겠다는 의미
 
 ## 4. 패키지 가져오기
@@ -262,29 +286,104 @@ getDriveStateFromProps를 통해서 컴포넌트의 props나 state가 바뀌었�
 
 <span style ="color:red">webpack.config.js , client.js</span>
 
-그다음 npm (require) 로 해당 패키지 2개 react , react-dom 패키지를 가져온다.
+그다음 **npm (require)** 로 해당 패키지 2개 react , react-dom 패키지를 가져온다.
 이렇게하면 index.html에 따로 스크립트 선언을 안해도 됩니다. React와  react-dom을 사용 
 그리고 index.html 파일에 기본 리액트 세팅을 해줍니다.
 
 
-<img src="img_12.png" width="400">
+<p align="center"><img src="src/ch1-1/img/img_12.png" width="400">
 
+</p>
 
 ## 5. 파일 분리
 
 그 다음 파일 분리를 해줘야합니다. <br>
 
 ## why?
-같은 파일에 예를 들어서 컴포넌트가 2만개가 있다고 하면 유지보수가 힘들기 때문에 webPackTest라고 하는 파일을 만들어서 npm으로 가져와 줍니다.
+같은 파일에 예를 들어서 컴포넌트가 2만개가 있다고 하면 유지보수가 힘들기 때문에 webPackTest라고 하는 파일에서 호출하는 형식으로 사용을 하고
+npm으로 가져와 줍니다.
 즉 require webPackTest 파일만 가져와서 사용하겠다는 의미.
 
 
 ## client.js
-<img src="img_13.png" width="400">
+
+<p align="center"><img src="src/ch1-1/img/img_13.png" width="400">
+</p>
+
+```js
+
+const React = require('react');
+
+const ReactDom = require('react-dom');
+
+
+const webPackTest = require('./webPackTest');
+
+
+ReactDom.render(<webPackTest/>, document.querySelector('#root'));
+
+```
 
 ## webPackTest.js
 
-<img src="img_15.png" width="400">
+<p align="center"><img src="src/ch1-1/img/img_14.png" width="400"></p>
+
+
+
+```js
+const React = require('react');
+
+
+function webPackTest() {
+  
+    
+    return(
+        <main>
+          
+        </main>
+    )
+}
+
+moudle.export = webPackTest();
+
+```
+
+
+## 6. 앱 생성
+webPack이 설치가 되고 app.js가 생성이 되는걸 볼 수 있습니다.
+
+
+
+# Babel 
+### 바벨이란? 
+
+흔히 트랜스파일로 변환시켜주는 라이브러리 입니다.
+브라우저는 JSX 문법 ,리액트에 쓰는 함수 등을 모르기 때문에 브라우저가 읽을 수 있는 JS로 바꿔주는 바벨을 설치 합니다.
+
+
+<p align="center"><img src="src/ch1-1/img/babelC.png" width="390"></p>
+
+
+<p align="center"><img src="src/ch1-1/img/babel.png" width="70"/>
+
+<p align="center"><img src="src/ch1-1/img/img.png" width="350"/></p>
+
+
+# 설치
+
+## 1. npm i -D @babel/core
+
+``npm i -D @babel/core``
+
+## 2. npm i @babel/preset-env
+``npm i @babel/preset-env``
+
+## 3. npm i babel-loader
+``npm i babel-loader``
+
+## 4. npm i -D @babel/plugin-proposal-class-properties
+``npm i -D @babel/plugin-proposal-class-properties``
+
 
 
 ### `npm start`
