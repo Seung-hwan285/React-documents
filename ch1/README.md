@@ -284,20 +284,22 @@ getDriveStateFromProps를 통해서 컴포넌트의 props나 state가 바뀌었�
 
 파일 2개 생성
 
-<span style ="color:red">webpack.config.js , client.js</span>
-
-그다음 **npm (require)** 로 해당 패키지 2개 react , react-dom 패키지를 가져온다.
-이렇게하면 index.html에 따로 스크립트 선언을 안해도 됩니다. React와  react-dom을 사용 
-그리고 index.html 파일에 기본 리액트 세팅을 해줍니다.
+## <span style ="color:red">webpack.config.js ,util.js </span>
 
 
-<p align="center"><img src="src/ch1-1/img/img_12.png" width="400">
 
-</p>
 
-## 5. 파일 분리
+## 5. npm i -D webpack-dev-server
+``npm i -D webpack-dev-server``
 
-그 다음 파일 분리를 해줘야합니다. <br>
+웹펙 데브 서버는 웹 에플리케이션을 개발하는 과정에서 유용하게 쓰이는 도구입니다.
+빌드 대상 파일이 변경되었을 때 매번 웹팩 명령어를 실행하지 않아도 코드만 변경하고 저장하면 웹펙으로 빌드한 브라우저를 새로고침 해줍니다.
+
+
+## 6. npm i html-webpack plugin
+``npm i html-webpack plugin``
+
+웹팩은 HTML 파일 생성을 제공합니다. dev-server을 설치할때 같이 설치를 해줘야지 에러가 안나옵니다. 
 
 ## why?
 같은 파일에 예를 들어서 컴포넌트가 2만개가 있다고 하면 유지보수가 힘들기 때문에 webPackTest라고 하는 파일에서 호출하는 형식으로 사용을 하고
@@ -383,6 +385,10 @@ webPack이 설치가 되고 app.js가 생성이 되는걸 볼 수 있습니다.
 
 ## 4. npm i -D @babel/plugin-proposal-class-properties
 ``npm i -D @babel/plugin-proposal-class-properties``
+
+
+
+
 
 
 
