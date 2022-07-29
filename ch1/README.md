@@ -258,8 +258,7 @@ getDriveStateFromProps를 통해서 컴포넌트의 props나 state가 바뀌었�
 
 # WebPack
 
-
-<img src="src/ch1-1/img/img_11.png">
+<img src="src/ch1-1/img/webpack_img.png">
 
 
 ### 웹펙이란?
@@ -412,6 +411,7 @@ webPack이 설치가 되고 app.js가 생성이 되는걸 볼 수 있습니다.
 <p align="center"><img src="src/ch1-1/img/babel.png" width="70"/>
 
 <p align="center"><img src="src/ch1-1/img/img.png" width="350"/></p>
+
 
 
 <br>
