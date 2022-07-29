@@ -1,5 +1,7 @@
 # Part1 리액트 동작원리 및 개념
 
+<br>
+
 # 탄생 배경
 
 ![img_1.png](img_1.png)
@@ -201,6 +203,7 @@ const Counter =()=>{
 
 
 
+<br>
 
 ## Mount
 
@@ -217,9 +220,13 @@ getDerivedStateFromProps는 props로 받아온 것을 state에 넣어주고 싶�
 
 
 
+
+
 * **componentDidMount** <br>
 컴포넌트의 첫 렌더링이 끝나고 나면 호출되는 메서드이고 우리가 만든 컴포넌트가 화면에 나타난 상태가 됩니다.
 
+
+<br>
 
 ## updateMount 
 getDriveStateFromProps를 통해서 컴포넌트의 props나 state가 바뀌었을때도 이 메서드가 호출이 됩니다.
@@ -277,22 +284,28 @@ getDriveStateFromProps를 통해서 컴포넌트의 props나 state가 바뀌었�
 리액트에 필요한 모든 패키지들을 넣는 package.json 파일 생성
 
 
+<br>
+
 ## 2. npm i react react-dom
 ``npm i react react-dom``
 
 리액트를 사용하기 위해서는 react 패키지랑 , react-dom 패키지가 필요하니 바로 설치 진행
+
+<br>
 
 ## 3. npm i -D webpack webpack-cli
 ``npm i -D webpack webpack-cli``
 
 바로 웹팩을 설치해주는데 (-D) 는 실제 서비스할때 웹팩이 필요가 없고 개발할때만 필요하기 때문에 개발용으로 설치하겠다는 의미
 
+
+<br>
+
 ## 4. webpack.config 생성
 
 웹펙을 설정 해줄 webpack.config 파일을 생성합니다.
 
-
-## <span style ="color:red">webpack.config.js</span>
+<br>
 
 ## 5. npm i -D webpack-dev-server
 ``npm i -D webpack-dev-server``
@@ -300,6 +313,8 @@ getDriveStateFromProps를 통해서 컴포넌트의 props나 state가 바뀌었�
 웹펙 데브 서버는 웹 에플리케이션을 개발하는 과정에서 유용하게 쓰이는 도구입니다.
 빌드 대상 파일이 변경되었을 때 매번 웹팩 명령어를 실행하지 않아도 코드만 변경하고 저장하면 웹펙으로 빌드한 브라우저를 새로고침 해줍니다.
 
+
+<br>
 
 ## 6. npm i html-webpack plugin
 ``npm i html-webpack plugin``
@@ -311,6 +326,8 @@ getDriveStateFromProps를 통해서 컴포넌트의 props나 state가 바뀌었�
 npm으로 가져와 줍니다.
 즉 require webPackTest 파일만 가져와서 사용하겠다는 의미.
 
+
+<br>
 
 ## util.js
 ```js
@@ -371,10 +388,15 @@ module.exports={
 ```
 
 
+<br>
+
+
 
 ## 6. app.js 생성
 webPack이 설치가 되고 app.js가 생성이 되는걸 볼 수 있습니다.
 
+
+<br>
 
 
 # Babel 
@@ -391,6 +413,8 @@ webPack이 설치가 되고 app.js가 생성이 되는걸 볼 수 있습니다.
 
 <p align="center"><img src="src/ch1-1/img/img.png" width="350"/></p>
 
+
+<br>
 
 # Babel 설치
 
