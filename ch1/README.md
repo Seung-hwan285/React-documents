@@ -392,7 +392,7 @@ webPack이 설치가 되고 app.js가 생성이 되는걸 볼 수 있습니다.
 <p align="center"><img src="src/ch1-1/img/img.png" width="350"/></p>
 
 
-# 설치
+# Babel 설치
 
 ## 1. npm i -D @babel/core
 
@@ -410,21 +410,3 @@ webPack이 설치가 되고 app.js가 생성이 되는걸 볼 수 있습니다.
 
 
 
-
-
-
-
-
-### `npm start`
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-
- 
