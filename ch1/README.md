@@ -20,7 +20,7 @@ DOM을 전부 날리고 다시 새로 만들어서 보여주자는 발상으로 
 하지만 이렇게 하다보면 매번 DOM을 새로 만들기 때문에 이슈가 발생하는데 이때 문제를 가상 DOM을 사용해서 업데이트가 필요한 부분만 가상 DOM으로 수정하고
 가상 DOM이 원본 DOM의 복사본으로 업데이트 되는 방식입니다.
 
-
+<br>
 
 # Virtual DOM FLOW
 
@@ -40,6 +40,7 @@ DOM의 각 노드는 요소를 나타냅니다.
 
 4. 마지막으로 변화된 요소들을 찾으면 `Origin DOM`을 업데이트 합니다.
 
+<br>
 
 # 컴포넌트
 - 리액트로 만들어진 앱을 이루는 최소한 단위
@@ -65,7 +66,7 @@ DOM의 각 노드는 요소를 나타냅니다.
 
 <img src="src/ch1-1/img/img_4.png">
 
-
+<br>
 
 
 # Class vs Functional 
@@ -132,7 +133,7 @@ const Counter =()=>{
 
 ```
 
-
+<br>
 
 # Render()
 
@@ -152,11 +153,16 @@ const Counter =()=>{
 - Render()와 같은 역할을 하고 있는 메서드
 
 
+<br>
+
 # Hydrate()
 
 ### hydrate ( element , container , callback)
 - Render () 와 동일
 - 서버 측 랜더링을 위해서 구현 
+
+
+<br>
 
 # findDOMNode()
 ### findDOMNode (component)
@@ -166,6 +172,8 @@ const Counter =()=>{
 
 - 주로 DOM 값을 읽을 때 유용 => 대부분의 경우 ref를 사용하기 때문에 findMode는 사용할 필요가 없습니다.
 
+<br>
+
 # creratePortal()
 ### createPortal ( child , container )
 
@@ -173,15 +181,14 @@ const Counter =()=>{
 
 - `Container` : 이 매개변수는 요소가 랜더링 되어야 하는 컨테이너를 예상합니다.
 
+<br>
 
 # unmountComponentAtNode()
 
 ### unmountComponentAtNode ( container )
 - `Parameters` : 이 메서드는 React 구성요소를 제거해야 하는 DOM 컨테이너를 예상하는 매개변수 컨테이너를 사용합니다.
 
-
-
-
+<br>
 
 # React Life Cycle
 생명주기 메서드는 컴포넌트가 Browser 상에 나타날때 업데이트 되고 사라지게 될 때 호출되는 메서드들 입니다.
@@ -280,14 +287,12 @@ getDriveStateFromProps를 통해서 컴포넌트의 props나 state가 바뀌었�
 
 바로 웹팩을 설치해주는데 (-D) 는 실제 서비스할때 웹팩이 필요가 없고 개발할때만 필요하기 때문에 개발용으로 설치하겠다는 의미
 
-## 4. 패키지 가져오기
+## 4. webpack.config 생성
 
-파일 2개 생성
-
-## <span style ="color:red">webpack.config.js ,util.js </span>
+웹펙을 설정 해줄 webpack.config 파일을 생성합니다.
 
 
-
+## <span style ="color:red">webpack.config.js</span>
 
 ## 5. npm i -D webpack-dev-server
 ``npm i -D webpack-dev-server``
@@ -302,53 +307,69 @@ getDriveStateFromProps를 통해서 컴포넌트의 props나 state가 바뀌었�
 웹팩은 HTML 파일 생성을 제공합니다. dev-server을 설치할때 같이 설치를 해줘야지 에러가 안나옵니다. 
 
 ## why?
-같은 파일에 예를 들어서 컴포넌트가 2만개가 있다고 하면 유지보수가 힘들기 때문에 webPackTest라고 하는 파일에서 호출하는 형식으로 사용을 하고
+같은 파일에 예를 들어서 컴포넌트가 2만개가 있다고 하면 유지보수가 힘들기 때문에 index.js 파일에서 호출하는 형식으로 사용을 하고
 npm으로 가져와 줍니다.
 즉 require webPackTest 파일만 가져와서 사용하겠다는 의미.
 
 
-## client.js
-
-<p align="center"><img src="src/ch1-1/img/img_13.png" width="400">
-</p>
-
+## util.js
 ```js
-
-const React = require('react');
-
-const ReactDom = require('react-dom');
-
-
-const webPackTest = require('./webPackTest');
-
-
-ReactDom.render(<webPackTest/>, document.querySelector('#root'));
-
-```
-
-## webPackTest.js
-
-<p align="center"><img src="src/ch1-1/img/img_14.png" width="400"></p>
-
-
-
-```js
-const React = require('react');
-
-
-function webPackTest() {
-  
-    
-    return(
-        <main>
-          
-        </main>
-    )
+export const add =(num1,num2)=>{
+    return num1+ num2;
 }
 
-moudle.export = webPackTest();
+
+
+export const hello =(name)=>{
+    return name;
+}
+```
+
+
+## webpack.config.js
+
+```js
+const path = require('path');
+
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+
+
+module.exports={
+
+    // 시작 파일  ( 사용하는 모듈들을 전부 파악 )
+    entry: './src/index.js',
+
+    // 만들어진 최종 파일을 만들어내는 내보내는 옵션
+    output: {
+
+
+        filename: 'main.js',
+
+        // 폴더 경로 => 노드에서 사용하는 path 모듈 사용
+        // 즉 현재 경로 하위에 dist를 의미
+        path: path.resolve(__dirname,'dist'),
+    },
+
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: "./index.html",
+        }),
+    ],
+
+    // 개발서버 세팅
+    devServer: {
+        static:{
+            directory: path.resolve(__dirname,'dist'),
+        },
+
+
+        port:8080,
+    }
+}
 
 ```
+
 
 
 ## 6. 앱 생성
@@ -385,6 +406,8 @@ webPack이 설치가 되고 app.js가 생성이 되는걸 볼 수 있습니다.
 
 ## 4. npm i -D @babel/plugin-proposal-class-properties
 ``npm i -D @babel/plugin-proposal-class-properties``
+
+
 
 
 
