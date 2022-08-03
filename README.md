@@ -11,3 +11,15 @@
 - Webpack , Bebel , Create-react-app
 - React Life Cycle
 
+
+
+## [Ch.2]
+
+- JSX 
+- Props 
+- State
+- key
+- 컴포지션
+- 조건부 랜더링 , 배열 랜더링
+- 리액트 컴포넌트 스타일링
+ 

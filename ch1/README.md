@@ -433,4 +433,8 @@ webPack이 설치가 되고 app.js가 생성이 되는걸 볼 수 있습니다.
 
 
 
+<br>
 
+
+# create-react-app
+- WebPack 과 Babel 따로 설정할 필요 없이 바로 React 프로젝트 생성
