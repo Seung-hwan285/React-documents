@@ -1,16 +1,13 @@
 
 import './App.css';
 
-import Welocome from './ch2-1/Welcome';
-
-
 function App() {
   return (
     <div className="App">
-  
-    
-    <Welocome name={"react"}/>
-    
+    {/* <Welocome name={"react"}/>
+   */}
+      {/* <Parent/> */}
+      {/* <Parent2/> */}
 
     </div>
   );
