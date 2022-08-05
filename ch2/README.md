@@ -29,6 +29,10 @@ functional App(){
 ```
 
 
+
+<br>
+
+
 ```js
 
 functional App(){
@@ -44,9 +48,9 @@ functional App(){
 ```
 
 
-<br>
-<br>
 
+<br>
+<br>
 
 
 ## 2. JSX 내부에서 자바스크립트 변수를 보여줘야 할 때는 {} 사용 한다.
@@ -124,6 +128,10 @@ export default App;
 
 ```
 
+
+<br>
+
+
 ```js
 import React from 'react';
 
@@ -179,6 +187,10 @@ prop drilling이 보통 3~5개 컴포넌트를 거치는 정도이면 , 괜찮�
 
 다음 먼저  간단한  프로퍼티 드릴링 예제를 살펴보도록 합시다.
 
+
+<br>
+<br>
+
 ```js
 
 export default function Parent(){
@@ -200,6 +212,9 @@ export default function Parent(){
 
 
 ```
+
+
+<br>
 
 
 ```js
@@ -225,6 +240,9 @@ function ChildA({fname,lname}){
 ```
 
 
+<br>
+
+
 ```js
 
 function ChildB({fname,lname}){
@@ -244,6 +262,8 @@ function ChildB({fname,lname}){
 }
 
 ```
+
+<br>
 
 ```js
 
@@ -269,6 +289,10 @@ function ChildC({fname, lname}){
 }
 
 ```
+
+
+
+<br>
 
 
 굉장히 비효율적으로 동일한 데이터가 내려가는 것을 확인 할 수 있습니다.
