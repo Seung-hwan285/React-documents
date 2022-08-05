@@ -172,7 +172,10 @@ hello react
 
 # Props Drilling (프로퍼티 내리꽂기)
 
-![](2022-08-05-07-55-19.png)
+![](img2.png)
+
+
+
 
 
 
@@ -196,6 +199,7 @@ prop drilling이 보통 3~5개 컴포넌트를 거치는 정도이면 , 괜찮�
 export default function Parent(){
   const [fName , setfName] = useState('fName');
   const [lName , setlName] = userState('lName');
+
 
 
   return(
@@ -274,7 +278,6 @@ function ChildC({fname, lname}){
 
           <div>
                This is ChildC Component.
-              
           </div>
 
           <br/>
@@ -303,7 +306,169 @@ function ChildC({fname, lname}){
 <br>
 
 # Context API
+context는 전역적 `(global)`이라고 볼 수 있는 데이터를 공유할 수 있도록 고안된 방법입니다.
+context 사용함으로 모든 컴포넌트를 일일이 통하지 않고도 원하는 값을 `컴포넌트 트리 깊은 곳` 까지 보낼 수 있습니다. 
+
+<br>
+<br>
+
+## React.createContext
+
+```js
+let context = React.createContext(null);
+```
+Context 객체를 만듭니다.
+
+<br>
+<br>
+
+
+## Context.Provider
+
+```js
+<MyContext.Provider value={`test`}>  
+```
+
+Context에 포함된 React 컴포넌트인 Provider는  컴포넌트들에게 context 변화를 알리는 역할을 합니다.
+
+`Provider 컴포넌트`는 `value prop`을 받아서 이 값을 하위에 있는 컴포넌트에게 전달합니다. 값을 전달받을 수 있는 컴포넌트의 수에 제한은 없습니다.
+
+
+<br>
+<br>
+
+
+```js
+
+import React, { useContext } from "react";
+import {useState} from "react";
+let context = React.createContext(null);
+
+
+export default function Parent2(){
+
+        const [fName, setfName] = useState('fristName');
+        const [lName, setlName] = useState('lastName');
+
+        return(
+
+            <context.Provider value={{fName, lName}}>
+
+                    <div>
+                        This is a Parent component
+                        <br/>
+                        <ChildA/>
+                    </div>
+
+            </context.Provider>
+        );
+}
+
+
+function ChildA() {
+
+    return (
+        <>
+            <h3>This is ChildA Component.</h3>
+            <br />
+            <ChildB />
+        </>
+    );
+}
+
+
+function ChildB() {
+
+    return (
+        <>
+            <h3>This is ChildB Component.</h3>
+            <br />
+            <ChildC />
+        </>
+    );
+}
+
+
+function ChildC() {
+
+
+    const {fName,lName} = useContext(context);
+ 
+    return (
+        <>
+            <h3>This is ChildC component.</h3>
+            <br />
+            <h3> Data from Parent component is as follows:</h3>
+            <h4>{fName}</h4>
+            <h4>{lName}</h4>
+        </>
+    );
+}
+
+
+```
+
+
+<br>
+<br>
+
+
+
+# Composition ( 합성 )
+리액트는 훌륭한 컴포지션 모델을 가지고 있고 상속을 사용하기보다 컴포지션 형태로 사용하여 컴포넌트 재사용을 권하고 있습니다.
+
+![](2022-08-05-15-33-46.png)
+
+위 사진은 아래 코드를 빌드하고 props를 console.log 했을때 출력되는 사진입니다.
+
+Content() 컴포넌트 2개가 출력되는걸 확인 할 수 있습니다.
 
 
 
 
+```js
+
+import React from "react"
+
+export default function compostion(){
+
+    return(
+        <>
+            <Sidebar >
+                 <Content/>
+                 <Content/>
+            </Sidebar>
+        </>
+    );
+}
+
+
+const Sidebar=(props)=>{
+
+    return(
+        <div className="sidebar">
+
+            {props.children}
+
+        </div>
+
+    );
+}
+
+const Content=()=>{
+
+    return(
+        <div>
+                <h1>Sidebar data 1</h1>
+                <h1>Sidebar data 2</h1>
+                <h1>Sidebar data 3</h1>
+                <h1>Sidebar data 4</h1>
+        </div>
+    );
+}
+
+```
+
+
+
+이 컴포지션 방법으로 Context API 예제를 바꿔봅니다.

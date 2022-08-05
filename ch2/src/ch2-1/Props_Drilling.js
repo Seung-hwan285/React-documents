@@ -4,7 +4,7 @@ export default function Parent() {
 
     const [fName, setfName] = useState("firstName");
     const [lName, setlName] = useState("LastName");
-
+    
     return (
         <>
             <h1>This is a Parent component</h1>
@@ -26,6 +26,8 @@ function ChildA({ fname, lname }) {
         </>
     );
 }
+
+
 
 
 
