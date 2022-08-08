@@ -469,6 +469,94 @@ const Content=()=>{
 
 ```
 
+<br>
+<br>
 
 
-이 컴포지션 방법으로 Context API 예제를 바꿔봅니다.
+이 컴포지션 방법으로 위에서 했던 Context API 예제를 바꿔봅니다.
+
+
+```js
+
+import { useState } from "react";
+
+
+
+export default function Parent3(){
+
+
+
+    const [fName, setfName]= useState('firstName');
+
+    const [lName,setlName] = useState('lastName');
+
+    return(
+
+            <>
+              <ParentComponent>
+                        <ChildA>
+                                <ChildB>
+                                        <ChildC data1={fName} data2={lName}/>
+                                </ChildB>
+                        </ChildA>
+              </ParentComponent>
+            </>
+    );
+}
+
+const ParentComponent=(props)=>{
+
+        return  (
+                <div>{props.children}</div>
+        );
+
+}
+
+
+
+const ChildA =({children})=>{
+        return(
+
+                <>
+                        <h3>This is ChildA Component.</h3>
+                        <br/>
+                        {children}
+                </>
+        )
+}
+
+
+
+const ChildB=({children})=>{
+
+        return(
+
+                <>
+                        <h3>This is ChildB Component.</h3>
+                        <br/>
+                        {children}
+                </>
+        )
+}
+
+
+const ChildC=({data1,data2})=>{
+
+        return(
+                <>
+                        <h3>This is ChildC Component.</h3>
+                        <br/>
+                        <h4>{data1}</h4>
+                        <h4>{data2}</h4>
+                </>
+                
+        );
+}
+```
+
+<br>
+<br>
+
+컴포지션을 통해 요소를 둘러쌀 때 마다 `상위 구성 요소`가 됩니다.<br> 
+그런 다음 `자식 구성 요소`들을 랜더링하는
+역할을 하는 `ParentComponent`를 만들어서 부모 구성 요소내에서 자식 구성 요소들을 받아서 출력 할 수 있습니다.

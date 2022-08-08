@@ -1,7 +1,6 @@
-
 import React from "react"
 
-export default function compostion(){
+export default function Composition(){
 
     return(
         <>
@@ -16,8 +15,6 @@ export default function compostion(){
 
 const Sidebar=(props)=>{
 
-
-        console.log(props.children);
     return(
         <div className="sidebar">
 
@@ -27,6 +24,7 @@ const Sidebar=(props)=>{
 
     );
 }
+
 
 const Content=()=>{
 

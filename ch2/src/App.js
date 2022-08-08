@@ -1,6 +1,8 @@
 
 import './App.css';
 import Parent3 from './ch2-1/Composition_Context';
+
+
 function App() {
   return (
     <div className="App">
@@ -14,8 +16,9 @@ function App() {
     <Composition/> */}
      
 
-     {Parent3}
-    </div>
+     <Parent3/>
+     
+         </div>
   );
 }
 
