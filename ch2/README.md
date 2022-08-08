@@ -176,10 +176,6 @@ hello react
 
 
 
-
-
-
-
 props를 오로지 하위 컴포넌트로 전달하는 용도로만 쓰이는 컴포넌트들을 거치면서 React Component 트리의 한 부분에서 다른 부분으로 데이터를 전달하는 과정입니다.
 
 prop drilling이 보통 3~5개 컴포넌트를 거치는 정도이면 , 괜찮을 수 있으나 , 10개 이상을 거친다면 중간 컴포넌트들은 불필요하게 props를 받게 되어 가독성이 떨어져 유지보수가 어려워집니다.
@@ -416,6 +412,14 @@ function ChildC() {
 # Composition ( 합성 )
 리액트는 훌륭한 컴포지션 모델을 가지고 있고 상속을 사용하기보다 컴포지션 형태로 사용하여 컴포넌트 재사용을 권하고 있습니다.
 
+그리고 공식문서에서는 Context를 사용하기 전에 Composition을 통해서 해결할 수 있는 문제인지 고려해보고 Context를 사용하기전에 Compositon을 사용하라고 나와 있습니다.
+
+왜냐하면 Context에도 단점이 존재하는데 props를 직접 넘겨주는 방법은 코드 상에서 해당 컴포넌트의 input이 무엇인지 확인 할 수 있지만 useContext로 컴포넌트 내부에 값에 접근하게 되면 해당 컴포넌트의 사용처에서 컴포넌트 내부에서 어떤 값이 쓰이고 있는지 보이지 않습니다.
+
+
+이러한 이유로 Compostion을 적극 권하고 있습니다.
+
+
 ![](2022-08-05-15-33-46.png)
 
 
@@ -565,3 +569,189 @@ const ChildC=({data1,data2})=>{
 컴포지션을 통해 요소를 둘러쌀 때 마다 `상위 구성 요소`가 됩니다.<br> 
 그런 다음 `자식 구성 요소`들을 랜더링하는
 역할을 하는 `ParentComponent`를 만들어서 부모 구성 요소내에서 자식 구성 요소들을 받아서 출력 할 수 있습니다.
+
+
+<br>
+<br>
+
+# State
+state는 객체에 대한 업데이트를 실행합니다.
+즉 state가 변경되면 컴포넌트는 리랜더링 되는 것 입니다.
+
+
+- 클래스형 컴포넌트가 가지고 있는 state
+- 함수형 컴포넌트가 useState라는 함수로 사용하는 state
+
+<br>
+<br>
+
+# State vs Props
+props 와 state는 일반 js 객체입니다. 
+두 객체 모두 랜더링 결과물에 영향을 주는 정보를 갖고 있는데 , 한 가지 중요한 방식에서 차이가 있습니다.
+`props`는 컴포넌트에 전달되는 반면 `state`는 ( 변수처럼 ) `컴포넌트 안에서 관리`됩니다.
+
+즉 props는 항상 부모에서 설정해주는 것이고 , state는 자신이 직접 변경하고 마음대 조작이 가능하다.
+
+<br>
+<br>
+
+## Classs State
+```js
+import React, {Component} from 'react';
+
+class Counter extends Component{
+
+    constructor(props){
+        super(props); // constructor 정의 시 반드시 필요!
+        this.state = { // state의 초기값 설정 부분
+            number:0
+        };
+    }
+
+    this.setState=
+}
+```
+
+state의 이름과 초기값을 constructor(생성자)에서 설정해주고 , render() 함수에서 this.setState 함수를 통해 state를 변경해 줄 수 있습니다.
+
+
+<br>
+<br>
+
+
+## Funcional State
+클래스형 컴포넌트에서는 `this.state ={}`  값을 정하고 , `this.setState` 함수로 state의 값을 변경하는 방식이였습니다.
+
+하지만 함수형 컴포넌트에서는 `useState` 함수가 이 두개의 역할을 같이 할 수 있게 해줍니다.
+
+
+
+```js
+
+import React from "react";
+import { useState } from "react";
+const Say=()=>{
+
+
+// 배열 비구조화 할당 
+    const [message , setMessage] =useState('초기값');
+
+    const onClickEnter=()=>{
+        setMessage('안녕');
+    }
+    const onClickLeave=()=>{
+        setMessage('잘가!');
+    }
+
+    return(
+        <div>
+            <button onClick={onClickEnter}>입장</button>
+            <button onClick={onClickLeave}>퇴장</button>
+
+            <h1>{message}</h1>
+        </div>
+    );
+}
+
+export default Say;
+```
+
+
+배열 비구조화 할당을 통해서 useState 함수를 호출할 시 배열이 반환되며 
+배열의 첫번째 원소는 현재 상태 , 두번째 원소는 상태를 바꾸어 주는 함수가 됩니다.
+
+즉 , message는 현재 state 상태가 저장되고 , setMessage는 state를 바꾸어 주는 setter함수가 됩니다.
+
+
+<br>
+<br>
+
+
+# List Key
+key는 React가 어떤 항목을 추가 , 삭제할지 식별할때 사용을 합니다.
+고유성을 부여하기 때문에 배열 내부의 엘리먼트에 지정해야 합니다.
+
+
+key를 선택하는 가장 좋은 방법은 리스트의 다른 항목들 사이에 해당 항목을 고유하게 식별할 수 있는 문자열로 사용하는 것 입니다. 
+대부분의 경우 ID를 Key로 사용합니다.
+```js
+    
+const todoItems = todos.map((todo) =>
+  <li key={todo.id}>
+    {todo.text}
+  </li>
+);
+
+```
+
+
+그럼 List Key가 어떻게 쓰이는지 배열 랜더링 예제를 보겠습니다.
+
+아래와 같이 배열이 있다고 가정합니다.
+
+```js
+const users = [
+  {
+   id: 1,
+    username: 'a',
+    email: 'public.velopert@gmail.com'
+  },
+  {
+    id: 2,
+    username: 'b',
+    email: 'tester@example.com'
+  },
+  {
+    id: 3,
+    username: 'c',
+    email: 'liz@example.com'
+  },
+
+    
+];
+```
+
+
+이 내용을 컴포넌트로 랜더링할려면 어떻게 할까요?
+`map()` 을 사용해서 추출을 할 수 있습니다.
+
+```js
+
+export default function List_key(){
+
+    return(
+
+        <div>
+
+            {user.map(($el)=>$el(
+                <User user={$el} key={$el.id}/>
+            ))}
+        </div>
+    )
+}
+
+function User(props){
+
+    return(
+
+        <div>
+            <span>{props.user}</span>
+
+            <span>{props.key}</span>
+        </div>
+
+    );
+}
+```
+
+<br>
+<br>
+
+# key의 존재유무에 따른 업데이트 방식
+
+예를 들어서 key가 없다고 하면 중간의 값이 바뀌었을때 그 하위 값들이 전부 변합니다.
+
+즉 `key`가 있어야만 배열이 업데이트 될 때 효율적으로 랜더링되고 수정되지 않는 기존의 값은 그대로 두고 원하는 곳에 내용을 추가하고 삭제 할 수 있습니다.
+
+리액트는 업데이트 요소들을 기존의 요소들과 비교 후에 변경하는데 이떄 Key로 식별한다.
+

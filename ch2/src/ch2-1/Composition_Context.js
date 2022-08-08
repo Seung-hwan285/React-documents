@@ -4,8 +4,6 @@ import { useState } from "react";
 
 export default function Parent3(){
 
-
-
     const [fName, setfName]= useState('firstName');
 
     const [lName,setlName] = useState('lastName');
@@ -32,8 +30,6 @@ const ParentComponent=(props)=>{
 
 }
 
-
-
 const ChildA =({children})=>{
         return(
 
@@ -44,8 +40,6 @@ const ChildA =({children})=>{
                 </>
         )
 }
-
-
 
 const ChildB=({children})=>{
 

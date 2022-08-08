@@ -1,9 +1,14 @@
 
+
 import './App.css';
-import Parent3 from './ch2-1/Composition_Context';
 
 
+import List_key from './ch2-1/List_key';
 function App() {
+
+
+   
+
   return (
     <div className="App">
     {/* <Welocome name={"react"}/>
@@ -16,9 +21,13 @@ function App() {
     <Composition/> */}
      
 
-     <Parent3/>
+    {/* <Parent3/> */}
      
-         </div>
+    {/* <Say/> */}
+
+    {/* <List_key/> */}
+  
+    </div>
   );
 }
 
