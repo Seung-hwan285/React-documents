@@ -294,7 +294,6 @@ function ChildC({fname, lname}){
 ```
 
 
-
 <br>
 
 
@@ -419,12 +418,18 @@ function ChildC() {
 
 ![](2022-08-05-15-33-46.png)
 
+
 위 사진은 아래 코드를 빌드하고 props를 console.log 했을때 출력되는 사진입니다.
 
 Content() 컴포넌트 2개가 출력되는걸 확인 할 수 있습니다.
 
 
 
+<br>
+<br>
+
+
+## Compositon Example
 
 ```js
 
