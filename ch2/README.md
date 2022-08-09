@@ -39,7 +39,6 @@ functional App(){
 
 // 잘못된 코드
     return(
-
         <div></div>
         <div></div>
     )
@@ -121,7 +120,6 @@ root.render(
     <App />
   </React.StrictMode>
 );
-
 
 export default App;
 
@@ -267,24 +265,23 @@ function ChildB({fname,lname}){
 
 ```js
 
-  return(
 
-      <div>
+function ChildC() {
 
-          <div>
-               This is ChildC Component.
-          </div>
 
-          <br/>
-
-          {fname}
-          {lname}
-
-      </div>
-
-  )
-
+    const {fName,lName} = useContext(context);
+ 
+    return (
+        <>
+            <h3>This is ChildC component.</h3>
+            <br />
+            <h3> Data from Parent component is as follows:</h3>
+            <h4>{fName}</h4>
+            <h4>{lName}</h4>
+        </>
+    );
 }
+
 
 ```
 
@@ -591,7 +588,7 @@ props 와 state는 일반 js 객체입니다.
 두 객체 모두 랜더링 결과물에 영향을 주는 정보를 갖고 있는데 , 한 가지 중요한 방식에서 차이가 있습니다.
 `props`는 컴포넌트에 전달되는 반면 `state`는 ( 변수처럼 ) `컴포넌트 안에서 관리`됩니다.
 
-즉 props는 항상 부모에서 설정해주는 것이고 , state는 자신이 직접 변경하고 마음대 조작이 가능하다.
+즉 props는 항상 부모에서 설정해주는 것이고 , state는 자신이 직접 변경하고 마음대 조작이 가능합니다.
 
 <br>
 <br>
@@ -614,7 +611,6 @@ class Counter extends Component{
 ```
 
 state의 이름과 초기값을 constructor(생성자)에서 설정해주고 , render() 함수에서 this.setState 함수를 통해 state를 변경해 줄 수 있습니다.
-
 
 <br>
 <br>
@@ -668,7 +664,7 @@ export default Say;
 <br>
 
 
-# state를 직접 변경하지 않고 setter함수인 setState를 사용하는 이유 
+# state를 직접 변경하지 않고  setState를 사용하는 이유 
 가장 큰 이유는 state는 불변성(immuntable)을 유지 해야 합니다.
 state를 직접 수정하게 되면 리액트가 render 함수를 호출하지 않아 상태 변경이 일어나도 랜더링이 일어나지 않습니다. 상태 변경에 따라 구성 요소를 다시 랜더링 하려면 setState 를 사용해서 값을 변경해줘야 랜더링이 일어납니다.
 
@@ -689,8 +685,10 @@ JS에서는 원시형 타입을 제외한 모든 것들을  직접 제어할 수
 > 숫자 , 문자열 , 불린값 , undefined , null , symbol
 
 
+<br>
+
 아래와 같이 변수를 선언하게 되면<br>
-메모리 상에는 `1,'a'` , `'2,'b'` 모두 존재하며 `x,y`가 재할당 된 값을 가리키도록 변경하는 것이다.
+메모리 상에는 `1,'a'` , `'2,'b'` 모두 존재하며 `x,y`가 재할당 된 값을 가리키도록 하는 것이다.
 그리고 `ES6에서는 const` 로 선언하게 되면 재선언 재할당이 불가능한 변수를 만들기 때문에 주의하도록 하자.
 
 
@@ -746,7 +744,7 @@ console.log(arr);  // [ 1, 2 ]
 
 ```
 
-# List Key
+# List Key 
 key는 React가 어떤 항목을 추가 , 삭제할지 식별할때 사용을 합니다.
 고유성을 부여하기 때문에 배열 내부의 엘리먼트에 지정해야 합니다.
 
@@ -795,8 +793,13 @@ const users = [
 <br>
 
 
-이 내용을 컴포넌트로 랜더링할려면 어떻게 할까요?
-`map()` 을 사용해서 추출을 할 수 있습니다.
+# 배열 랜더링
+
+그럼 이 내용을  랜더링할려면 어떻게 할까요?
+
+배열을 랜더링하기 위해서는 `map()` 을 사용해서 추출을 할 수 있습니다.
+
+> `map()` 함수는 배열안에 있는 각 원소를 변환하여 새로운 배열을 만들어 줍니다.
 
 ```js
 
@@ -1010,6 +1013,8 @@ css-in-js는 말 그대로 자바스크립 안에서 css를 사용 가능하게�
 npm i styled-components
 ```
 
+
+<br>
 
 ## 사용법
 ```js

@@ -8,7 +8,6 @@
 - 탄생 배경 , Virtual DOM
 - 각 컴포넌트 특징 
 - React DOM
-- Webpack , Bebel , Create-react-app
 - React Life Cycle
 
 
@@ -24,3 +23,14 @@
 
 
  
+## [Ch.3]
+
+- useEffect()
+- useMemo()
+- useReducer()
+- useReducer()
+- useCallback()
+- useContext()
+
+
+
