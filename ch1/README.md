@@ -2,6 +2,8 @@
 
 <br>
 
+
+
 # 탄생 배경
 
 ![img_1.png](img_1.png)
@@ -15,6 +17,7 @@ DOM 속성이 바뀌도록 연결을 해줘서 업데이트 하는 작업을 간
 # Virtual DOM
 
 <img src="./src/ch1-1/img/img_1.png">
+
 
 리액트는 DOM을 직접 건드리는 작업은 번거롭다 판단을 해서 규칙을 정하는 것이 아니라,
 DOM을 전부 날리고 다시 새로 만들어서 보여주자는 발상으로 만들어지게 되었다.
@@ -58,7 +61,9 @@ DOM의 각 노드는 요소를 나타냅니다.
 
 - 재사용성 용이
 
-<img src="src/ch1-1/img/img_3.png">
+
+<p align="center"><img src="src/ch1-1/img/img_3.png"></p>
+
 
 
 
@@ -66,7 +71,9 @@ DOM의 각 노드는 요소를 나타냅니다.
 - 메뉴 컴포넌트 , 프로필 컴포넌트 , 검색 컴포넌트가 하나로 모여서 
 하나의 `Web`이 완성이 됩니다.
 
-<img src="src/ch1-1/img/img_4.png">
+
+<p align="center"><img src="src/ch1-1/img/img_4.png">
+</p>
 
 <br>
 
@@ -258,7 +265,9 @@ getDriveStateFromProps를 통해서 컴포넌트의 props나 state가 바뀌었�
 
 # WebPack
 
-<img src="src/ch1-1/img/webpack_img.png">
+
+<p align ="center"><img src="src/ch1-1/img/webpack_img.png"></p>
+
 
 
 ### 웹펙이란?

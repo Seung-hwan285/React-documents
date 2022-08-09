@@ -13,13 +13,14 @@
 
 
 
-## [Ch.2]
-
+## [Ch.2](https://github.com/Seung-hwan285/react-code/tree/master/ch2)
 - JSX 
-- Props 
+- Props
+- Context API , Composition 
 - State
-- key
-- 컴포지션
-- 조건부 랜더링 , 배열 랜더링
-- 리액트 컴포넌트 스타일링
+- key , 배열 랜더링
+- 조건부 랜더링 
+- 리액트 컴포넌트 스타일링  ( Sass , styled-components ) 
+
+
  
