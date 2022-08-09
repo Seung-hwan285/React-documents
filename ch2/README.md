@@ -267,7 +267,6 @@ function ChildB({fname,lname}){
 
 ```js
 
-function ChildC({fname, lname}){
   return(
 
       <div>
@@ -585,6 +584,8 @@ state는 객체에 대한 업데이트를 실행합니다.
 <br>
 <br>
 
+
+
 # State vs Props
 props 와 state는 일반 js 객체입니다. 
 두 객체 모두 랜더링 결과물에 영향을 주는 정보를 갖고 있는데 , 한 가지 중요한 방식에서 차이가 있습니다.
@@ -666,6 +667,84 @@ export default Say;
 <br>
 <br>
 
+
+# state를 직접 변경하지 않고 setter함수인 setState를 사용하는 이유 
+가장 큰 이유는 state는 불변성(immuntable)을 유지 해야 합니다.
+state를 직접 수정하게 되면 리액트가 render 함수를 호출하지 않아 상태 변경이 일어나도 랜더링이 일어나지 않습니다. 상태 변경에 따라 구성 요소를 다시 랜더링 하려면 setState 를 사용해서 값을 변경해줘야 랜더링이 일어납니다.
+
+<br>
+
+> 불변성이란?<br>
+말 그대로 변하지 않는 것을 의미.
+불변 데이터는 한번 생성되고 나면 그 뒤에는 변할 수 없다.
+즉 불변 데이터는 메모리영역 안에서 변경이 불가능하므로 변수에 할당할때 새로운 값이 만들어져서 재할당이 이루어져야 합니다.
+
+<br>
+<br>
+
+JS에서는 원시형 타입을 제외한 모든 것들을  직접 제어할 수 있고 변할 수 있는 값이라고 생각하면 쉽습니다.
+
+
+### 원시 타입
+> 숫자 , 문자열 , 불린값 , undefined , null , symbol
+
+
+아래와 같이 변수를 선언하게 되면<br>
+메모리 상에는 `1,'a'` , `'2,'b'` 모두 존재하며 `x,y`가 재할당 된 값을 가리키도록 변경하는 것이다.
+그리고 `ES6에서는 const` 로 선언하게 되면 재선언 재할당이 불가능한 변수를 만들기 때문에 주의하도록 하자.
+
+
+```js
+
+let x = 1
+let y = a
+
+
+x = 2
+y = 'b'
+
+console.log(x,y) // 2, 'b' 
+
+```
+
+
+<br>
+
+### 객체(참조) 타입
+> 객체 , 배열 , 함수 , 정규 표현식 
+
+
+<br>
+<br>
+
+```js
+let x = {
+  name: 'junimo'
+};
+
+let y = x;
+
+x.name = 'ken';
+
+console.log(y.name); // ken
+console.log(x === y) // true
+
+```
+
+<br>
+
+
+```js
+let arr=[1];
+
+let arrChange= arr;
+
+arr.push(2);
+
+
+console.log(arr);  // [ 1, 2 ]
+
+```
 
 # List Key
 key는 React가 어떤 항목을 추가 , 삭제할지 식별할때 사용을 합니다.
@@ -875,10 +954,12 @@ import styles from "./Box.module.css";
 
 <br>
 
+
+### Box.js
 ```js
 
 import React from "react";
-import styles from "./Box.module.css";
+import styles from "./Box2.module.css";
 
 
 function  Box(){
@@ -892,6 +973,8 @@ export default Box;
 
 <br>
 
+
+### Box2.module.css
 ```js
 .Box{
     background: black;
@@ -905,4 +988,53 @@ export default Box;
 
 즉 고유값인 CSS 클래스들을 갖게 되어서 `파일 이름 , 클래스 이름 ,해쉬 값`이 생성이 됩니다.
 
-![](2022-08-09-10-22-23.png)
+![](2022-08-09-11-09-21.png)
+
+
+<br>
+<br>
+
+# css-in-js ( Styled- Component )
+css-in-js는 말 그대로 자바스크립 안에서 css를 사용 가능하게끔 만드는 방식이고 여기에 관련된 스타일링 프레임워크가 Styled-Component 입니다.
+
+<br>
+
+장점은 다음과 같습니다.
+1. js 환경을 최대한 활용
+2. js와 css 사이의 상수와 함수를 공유
+3. 코드 사용량이 줄고 css문법에 친화적
+
+## 라이브러리 설치
+
+```js
+npm i styled-components
+```
+
+
+## 사용법
+```js
+import styled from "styled-components";
+```
+
+
+```js
+
+const Title = styled.h1`
+    font-size = 15px;
+    color : white;
+`;
+```
+
+
+```js
+
+<Title> Hello World </Title>
+
+```
+
+
+# 마치며
+CSS-in-js에 styled-component 방식과 CSS-in-css에 Sass은 분명한 차이점이 존재합니다.
+개발 효율성에 중점을 두고 필요한 부분에 적용하는 컴포넌트 위주  프로젝트라면 `css-in–js` 방식을 주로 권장하고
+
+사용자 편의에 방점을 둔 인터렉티브한 웹 프로젝트라면 모든 css 스타일 요소를 로딩하는 `css-in–css` 방식을 권장합니다.

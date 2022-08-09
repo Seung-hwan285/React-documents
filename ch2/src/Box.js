@@ -1,11 +1,13 @@
 import React from "react";
-import styles from "./Box.module.css";
 
 
 function  Box(){
-    return (
-        <div className={styles.Box}>{styles.Box}</div>
-    );
+
+    return(
+        <>
+        <button>버튼</button>
+        </>
+    )
 }
 
 export default Box;
