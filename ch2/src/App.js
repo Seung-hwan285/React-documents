@@ -1,34 +1,35 @@
+import React from 'react';
+import Box from './Box';
 
-
-import './App.css';
-
-
-import List_key from './ch2-1/List_key';
 function App() {
-
-
-   
-
   return (
     <div className="App">
     {/* <Welocome name={"react"}/>
    */}
-      {/* <Parent/> */}
+    {/* <Parent/> */}
      
-     {/* <Parent2/> */}
-
+    {/* <Parent2/> */}
+    
 {/* 
     <Composition/> */}
      
-
     {/* <Parent3/> */}
      
     {/* <Say/> */}
 
     {/* <List_key/> */}
   
-    </div>
+{/*         <Render name ="react" color="red" isSpecial={true}/> */}
+
+
+
+      <Box/>
+  </div>
+
+ 
   );
 }
 
 export default App;
+
+

@@ -672,8 +672,7 @@ key는 React가 어떤 항목을 추가 , 삭제할지 식별할때 사용을 �
 고유성을 부여하기 때문에 배열 내부의 엘리먼트에 지정해야 합니다.
 
 
-key를 선택하는 가장 좋은 방법은 리스트의 다른 항목들 사이에 해당 항목을 고유하게 식별할 수 있는 문자열로 사용하는 것 입니다. 
-대부분의 경우 ID를 Key로 사용합니다.
+key를 선택하는 가장 좋은 방법은 리스트의 다른 항목들 사이에 해당 항목을 고유하게 식별할 수 있는 ID를 Key로 사용합니다.
 ```js
     
 const todoItems = todos.map((todo) =>
@@ -684,7 +683,8 @@ const todoItems = todos.map((todo) =>
 
 ```
 
-
+<br>
+<br>
 그럼 List Key가 어떻게 쓰이는지 배열 랜더링 예제를 보겠습니다.
 
 아래와 같이 배열이 있다고 가정합니다.
@@ -710,6 +710,10 @@ const users = [
     
 ];
 ```
+
+
+<br>
+<br>
 
 
 이 내용을 컴포넌트로 랜더링할려면 어떻게 할까요?
@@ -755,3 +759,151 @@ function User(props){
 
 리액트는 업데이트 요소들을 기존의 요소들과 비교 후에 변경하는데 이떄 Key로 식별한다.
 
+
+
+<br>
+<br>
+
+# 조건부 랜더링
+React에서 조건부 랜더링은 JS에서의 조건 처리와 같이 동작합니다.
+즉 특정 조건에 따라 다른 결과물을 랜더링하는 것을 의미합니다.
+
+
+주로 `삼항연산자 ( ? )` 와 `&&`를 사용해서 처리를 하고. 가독성이 좋다고 판단되는 것을 사용하면 됩니다.
+
+```js
+import React from "react";
+const Render=({name,isSpecial})=>{
+    return(
+        <div>
+        { isSpecial ? <b>조건부 랜더링</b> : null }
+        안녕하세요 {name}
+      </div>
+    );
+}
+
+
+function App(){
+    
+    return(
+
+        <div>
+           <Render name ="react"  isSpecial={true}/>
+        </div>
+    )
+}
+
+export default Render;
+
+// 결과
+// 조건부 랜더링 안녕하세요 react 
+```
+
+현재 isSpecial은 true가 전달되고 있으므로 조건부 랜더링이 출력 됩니다.
+
+<br>
+<br>
+
+
+# 리액트 컴포넌트 스타일링 ( Sass , CSS-Moudle , css-in-js ) 
+리액트 컴포넌트를 스타일링 하는 방법은 다양한 기술이 사용되는데 그중에서 대표적인 
+Sass , CSS-Moudle , css-in-js 에 대해서 알아보겠습니다.
+
+가장 기본적인 방법은 css 파일을 만들어서 컴포넌트에서 import해서 사용하는 거지만 이보다 편리한 방법이 컴포넌트 스타일링 입니다.
+
+
+<br>
+
+# Sass
+
+https://github.com/sass/node-sass
+
+CSS-pre-processer 로서 , 복잡한 작업을 쉽게 할 수 있게 도와주고 , 코드의 재활용성을 높여줄 뿐만 아니라 , 코드의 가독성을 높여주어 유지보수가 간편해집니다.
+그리고 `Dart` 기반으로 동작하며 Sass와 Sacc 문법을 제공합니다.
+
+
+
+<br>
+<br>
+
+먼저 사용하기 앞서 `node-sass` 라이브러리를 설치 해줍니다.<br>
+이 라이브러리는 Sass를 CSS로 변환해주는 역할을 합니다.
+
+<br>
+<br>
+
+
+## 라이브러리 설치 
+
+```js
+
+npm install -g sass
+
+```
+
+
+## version 확인
+
+```js
+
+npm show sass version
+
+```
+
+
+<br>
+<br>
+
+
+# Css-Module
+https://github.com/css-modules/css-modules
+
+css 모듈을 이용하면 클래스명이 충돌하는 단점을 극복할 수 있습니다.
+즉 고유의 값들을 가지고 있기 때문에  간결한 클래스명을 이용해서 컴포넌트 단위로 스타일을 적용할때 좋습니다.
+
+<br>
+
+
+
+## 사용법
+```[파일이름].module.css```
+
+```js
+import styles from "./Box.module.css";
+
+```
+
+<br>
+
+```js
+
+import React from "react";
+import styles from "./Box.module.css";
+
+
+function  Box(){
+    return (
+        <div className={styles.Box}>{styles.Box}</div>
+    );
+}
+
+export default Box;
+```
+
+<br>
+
+```js
+.Box{
+    background: black;
+    color: wheat;
+    padding : 2rem;
+}
+```
+
+
+
+이처럼 현재 styles.Box를 출력 해보면 `파일 이름 , 클래스 이름 , 해쉬 값`이 포함되어서 출력이 됩니다. 
+
+즉 고유값인 CSS 클래스들을 갖게 되어서 `파일 이름 , 클래스 이름 ,해쉬 값`이 생성이 됩니다.
+
+![](2022-08-09-10-22-23.png)
