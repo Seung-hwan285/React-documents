@@ -899,7 +899,7 @@ export default Box;
     padding : 2rem;
 }
 ```
-fd
+
 
 이처럼 현재 styles.Box를 출력 해보면 `파일 이름 , 클래스 이름 , 해쉬 값`이 포함되어서 출력이 됩니다. 
 
