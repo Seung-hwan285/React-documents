@@ -15,7 +15,7 @@ const Average=()=>{
         if(list.length ===0) return 0;
 
 
-        use
+        
 
         const sum = list.reduce((a,b)=>a+b);
 
@@ -24,7 +24,6 @@ const Average=()=>{
     },[list]);
 
         
-    
 
 
     const onChange=(e)=>{
@@ -34,7 +33,7 @@ const Average=()=>{
     const onInsert=(e)=>{
         const nextList = list.concat(Number(number));
 
-        
+    
         setList(nextList);
 
         setNumber('');
