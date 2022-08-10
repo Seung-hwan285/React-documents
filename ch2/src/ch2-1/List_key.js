@@ -1,99 +1,77 @@
 import React from "react";
-
-
 /// key 
-// const users = [
-    
-//     {
-//         id : 1,
-//         name : 'a',
-//     },
+const users = [
+    {
+        id : 1,
+        name : 'a',
+    },
 
-//     {
-//         id : 2,
-//         name : 'b',
-//     },
-
-//     {
-//         id : 3,
-//         name : 'c',
-//     },
-
-
-//     {
-//         id : 4,
-//         name : 'd',
-//     },
- 
-
-// ];
-
-
-
-// function User({user}){
-    
-//     return(
-//         <div>
-//                 {user.name}
-//         </div>
-//     );
-// }
-
-
-// function UserList(){
-
-//     return(
-
-//         <div>
-
-//             {users.map(($el)=>(
-
-                
-//                 <User user={$el} key={$el.id}/>
-
-//             ))}
-
-//         </div>
-//     );
-
-// }
-
-// not key
-const users=[
-
-    'a',
-    'b',
-    'z',
-    'c',
-    'd',
+    {
+        id : 2,
+        name : 'b',
+    },
 ];
 
 
- function User({user}){
-    
-     return(
-         <div>
-                 {user}
-         </div>
-     );
- }
+function User({user}){
 
-function UserList(){
-    return (
-
+    return(
         <div>
-        {
+                {user.name}
+        </div>
+    );
+}
+
+
+export default function UserList(){
+    return(
+        <div>
+            {users.map(($el)=>(
+                <User user={$el} key={$el.id}/>
+           ))}
+        </div>
+    );
+}
+
+
+
+
+// not key
+// const users=[
+
+//     'a',
+//     'b',
+//     'z',
+//     'c',
+//     'd',
+// ];
+
+
+//  function User({user}){
+    
+//      return(
+//          <div>
+//                  {user}
+//          </div>
+//      );
+//  }
+
+// function UserList(){
+//     return (
+
+//         <div>
+//         {
             
-            users.map(($el)=>(
+//             users.map(($el)=>(
 
                 
-                             <User user={$el} key={$el.id}/>
+//                              <User user={$el} key={$el.id}/>
             
-                         ))}
+//                          ))}
 
-        </div>
-    )
+//         </div>
+//     )
     
-}
+// }
   
-  export default UserList;
+//   export default UserList;

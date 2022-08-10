@@ -998,7 +998,7 @@ export default Box;
 <br>
 
 # css-in-js ( Styled- Component )
-css-in-js는 말 그대로 자바스크립 안에서 css를 사용 가능하게끔 만드는 방식이고 여기에 관련된 스타일링 프레임워크가 Styled-Component 입니다.
+css-in-js는 말 그대로 자바스크립 안에서 css를 사용할 수 있게끔 만드는 방식이고 여기에 관련된 스타일링 프레임워크가 Styled-Component 입니다.
 
 <br>
 

@@ -1,11 +1,14 @@
 
 import './App.css';
-import User from './UserList';
+import Average from './useMemo_example';
+
+
+
 
 function App() {
   return (
     <div className="App">  
-      <User/>
+      <Average/>
     </div>
   );
 }
