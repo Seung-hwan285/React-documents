@@ -1000,6 +1000,10 @@ export default Box;
 # css-in-js ( Styled- Component )
 css-in-js는 말 그대로 자바스크립 안에서 css를 사용할 수 있게끔 만드는 방식이고 여기에 관련된 스타일링 프레임워크가 Styled-Component 입니다.
 
+
+> ( 현재 주로 사용하는 CSS 라이브러리 입니다. )
+컴포넌트 안에서 props를 다루기 편하기 때문에 주로 권장합니다.
+
 <br>
 
 장점은 다음과 같습니다.
