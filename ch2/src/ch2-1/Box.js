@@ -5,7 +5,7 @@ function  Box(){
 
     return(
         <>
-        <button></button>
+        <button>버튼</button>
         </>
     )
 }
