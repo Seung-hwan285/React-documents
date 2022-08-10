@@ -23,7 +23,7 @@
 
 
  
-## [Ch.3]
+## [Ch.3](https://github.com/Seung-hwan285/react-code/tree/master/ch3)
 
 - useEffect()
 - useMemo()

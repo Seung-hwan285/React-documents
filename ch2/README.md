@@ -887,7 +887,7 @@ export default Render;
 <br>
 
 
-# 리액트 컴포넌트 스타일링 ( Sass , CSS-Moudle , css-in-js ) 
+# 리액트 컴포넌트 스타일링 ( Sass , CSS-Moudle , CSS-IN-JS ) 
 리액트 컴포넌트를 스타일링 하는 방법은 다양한 기술이 사용되는데 그중에서 대표적인 
 Sass , CSS-Moudle , css-in-js 에 대해서 알아보겠습니다.
 
@@ -937,7 +937,7 @@ npm show sass version
 <br>
 
 
-# Css-Module
+# CSS-Module
 https://github.com/css-modules/css-modules
 
 css 모듈을 이용하면 클래스명이 충돌하는 단점을 극복할 수 있습니다.
@@ -1039,7 +1039,7 @@ const Title = styled.h1`
 
 
 # 마치며
-CSS-in-js에 styled-component 방식과 CSS-in-css에 Sass은 분명한 차이점이 존재합니다.
-개발 효율성에 중점을 두고 필요한 부분에 적용하는 컴포넌트 위주  프로젝트라면 `css-in–js` 방식을 주로 권장하고
+CSS-in-js에 styled-component 방식과 CSS-in-css에 Sass,CSS-Module 은 분명한 차이점이 존재합니다.
+개발 효율성에 중점을 두고 필요한 부분에 적용하는 컴포넌트 위주  프로젝트라면 `CSS-in–js` 방식을 주로 권장하고
 
-사용자 편의에 방점을 둔 인터렉티브한 웹 프로젝트라면 모든 css 스타일 요소를 로딩하는 `css-in–css` 방식을 권장합니다.
+사용자 편의에 방점을 둔 인터렉티브한 웹 프로젝트라면 모든 css 스타일 요소를 로딩하는 `CSS-in–css` 방식을 권장합니다.
