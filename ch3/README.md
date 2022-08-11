@@ -7,13 +7,52 @@ useState를 이용해서 상태 변수를 선언 할 수 있습니다.
 또한 `useEffect()` 를 통해 리액트 클래스의 componentDidMount , componentDidUpdate , componentWillUnmount와 같은 라이프 사이클을 관리할 수 있습니다.
 
 
+<br>
+<br>
+
+# componentDidMount 
+빈 종속성 배열이 있는 useEffect가 이방법을 대체합니다.
+배열에 값이 제공되지 않으면 마운트(랜더링) 시 후크만 평가합니다.
+
+![](2022-08-11-10-08-26.png)
+
 
 <br>
 <br>
 
+
+# componentDidUpdate
+이 메서드는 종속성 배열이나 종속성 배열의 값이 없는 useEffect로 대체됩니다.
+
+배열 자체가 제공되지 않으면 Hook는 다시 랜더링 할 때마다 평가됩니다.
+
+배열에 값이 제공되면 해당 값이 변경될 때 후크가 평가됩니다.
+
+
+
+![](2022-08-11-10-52-51.png)
+
+<br>
+<br>
+
+# componentWillUnmount
+return 문이 있는 UseEffect가 이 기술을 대체 했습니다.
+
+useEffect()가 함수를 반환하면 해당 함수는 구성 요소가 DOM에서 제거된 후에만 호출됩니다.
+
+
+
+![](2022-08-11-10-53-10.png)
+<br>
+<br>
 
 
 # useEffect
+
+```js
+const value = useContext(MyContext);
+```
+
 useEffect 함수는 리액트 컴포넌트가 랜더링 될 때마다 특정 작업을 실행할 수 있도록 하는 Hook입니다.
 
 컴포넌트가 마운트 됐을때(처음 나타날때) , 언마운트 됐을때 (사라질 때)
@@ -21,6 +60,7 @@ useEffect 함수는 리액트 컴포넌트가 랜더링 될 때마다 특정 작
 
 <br>
 <br>
+
 
 ## 기본 형태
 ```js
@@ -162,8 +202,6 @@ export default NumberRender;
 <br>
 <br>
 
-
-
 ## 3. Component가 update 될 때 ( 특정 props , state가 바뀔 때)
 - `특정값이 (name)` 업데이트 될 때 실행하고 싶을 때는 deps 위치의 배열 안에 검사하고 싶은 값을 넣어준다.
 
@@ -177,6 +215,7 @@ useEffect(()=>{
 
 ```
 
+<br>
 
 
 마지막으로 deps에 name값을 넣어줌으로써 name값이 변경될때만 Hello가 출력되게 만들어줍니다.
@@ -239,6 +278,8 @@ useMemo를 알아보기전에 알고리즘에 `Memoization`에 대해서 알아�
 즉 useMemo는 이 메모제이션 방식을 사용해서 메모리에 담아두었다가 특정 값이 바뀌었을 때 연산을 동작하게 하는 방식입니다.
 
 
+
+
 <br>
 
 ```js
@@ -249,12 +290,10 @@ const avg = useMemo(() =>{
 
 ```
 
-<br>
+인자로 값을 넘겨 값이 변경되면  함수를 재실행합니다.
 
 
-글자 입력 시에도 getAvergae 함수가 동작하기 때문에 콘솔창에 '평균값 계산중' 이라고 나오게 됩니다.
-그리고 버튼 입력 시에도 `getAverage` 함수가 동작 하기 때문에 콘솔창에 '평균값 계산중' 이 나오게 되는데
-종합적으로 , `getAverage` 함수가 필요하지 않는 곳에서 작동이 되는 현상이 발생합니다.
+
 
 <br>
 <br>
@@ -272,7 +311,7 @@ const Average=()=>{
     const [number, setNumber]=  useState('');
 
 
-
+    
     const getAvergae=()=>{
 
         console.log('평균값 계산중');
@@ -280,7 +319,7 @@ const Average=()=>{
         if(list.length ===0) return 0;
 
 
-
+        // 배열에 있는 원소 나열해서 더함
         const sum = list.reduce((a,b)=>a+b);
 
 
@@ -292,14 +331,18 @@ const Average=()=>{
         setNumber(e.target.value);
     }
 
+
     const onInsert=(e)=>{
+
+        // push 대신 concat사용해서 배열에 값 추가 
         const nextList = list.concat(Number(number));
 
-        
         setList(nextList);
 
         setNumber('');
     };
+
+
 
     return(
         <div>
@@ -308,27 +351,24 @@ const Average=()=>{
             <ul>
                 {
                 list.map((value,index)=>(
-
-                            
+                    
                     <li key={index}>{value}</li>
                     
                 ))}                
             </ul>
 
             <div>
-                <b>평균값;</b> {getAvergae()}
-
+                <b>평균값;</b> {getAvergae}
             </div>
         </div>
     )
 }
-
 export default Average;
 ```
 
 
-
-
+<br>
+<br>
 
 ## useMemo 사용 후
 ```js
@@ -342,23 +382,18 @@ const Average=()=>{
     const [number, setNumber]=  useState('');
 
 
-
+    
     const getAvergae= useMemo(()=>{
         console.log('평균값 계산중');
         
         if(list.length ===0) return 0;
 
-
+        // 배열안에 있는 원소들 나열해서 더해줌
         const sum = list.reduce((a,b)=>a+b);
-
-
         return sum / list.length;
     },[list]);
 
-        
     
-
-
     const onChange=(e)=>{
         setNumber(e.target.value);
     }
@@ -366,7 +401,6 @@ const Average=()=>{
     const onInsert=(e)=>{
         const nextList = list.concat(Number(number));
 
-        
         setList(nextList);
 
         setNumber('');
@@ -387,7 +421,7 @@ const Average=()=>{
             </ul>
 
             <div>
-                <b>평균값;</b> {getAvergae()}
+                <b>평균값;</b> {getAvergae}
 
             </div>
         </div>
@@ -397,9 +431,18 @@ const Average=()=>{
 export default Average;
 ```
 
+<br>
+<br>
+
+글자 입력 시에도 `getAvergae` 함수가 동작하기 때문에 콘솔창에 '평균값 계산중' 이라고 나오게 됩니다.
+그리고 버튼 입력 시에도 `getAverage` 함수가 동작 하기 때문에 콘솔창에 '평균값 계산중' 이 나오게 되는데
+종합적으로 , `getAverage` 함수가 필요하지 않는 곳에서 작동이 되는 현상이 발생합니다.
 
 
-# useMemo vs useState 
+<br>
+<br>
+
+# useMemo vs useEffect
 
 둘다 deps를 사용해서 값을 업데이트 한다는 공통점이 있습니다.<br>
 그럼 2개의 차이점은 무엇일까요?
@@ -416,3 +459,51 @@ useMemo는 메모제이션 방식을 사용해서 값을 업데이트를 합니�
 <br>
 
 - `useMemo` : deps 배열의 요소가 변경되거나 베열이 생략된 경우 랜더링 전에 호출이 됩니다. 즉 `랜더링을 이전`에 하기 때문에 성능을 효율적으로 사용 할 수 있습니다.
+
+
+<br>
+<br>
+
+
+# useRef
+
+```js
+const refContainer = useRef(initialValue);
+```
+
+JS에서는 특정 DOM을 선택할 때 `getElmenyId` , `querySelector` 같은 DOM Selector 함수를 사용해서 DOM을 선택합니다.
+
+리액트를 사용하는 프로젝트에서도 가끔씩 DOM을 직접 선택해야하는 상황이 오는데 예를 들어 스크롤바 위치를 가져오거나 , 특정 엘리먼트 크기를 가져와야 한다던지 , 다양한 상황들이 찾아옵니다.
+
+
+이때 리액트에서는 `ref` 라는 것을 사용합니다.
+
+<br>
+
+그리고 함수형에서는 `useRef` 라는 Hook 함수를 사용합니다.
+> 클래스형에서는 `React.createRef` 라는 함수를 사용
+
+<br>
+
+본질적으로 **useRef** 즉 `ref`는 .current 프로퍼티에 변경 가능한 값을 담고 있는 상자와 같습니다.
+
+
+<br>
+<br>
+
+
+# useCallback
+
+
+
+
+# useReducer
+
+
+
+
+
+# useContext
+
+
+

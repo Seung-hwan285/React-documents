@@ -36,6 +36,8 @@ const Average=()=>{
     
         setList(nextList);
 
+
+        console.log(list);
         setNumber('');
     };
 
@@ -54,7 +56,7 @@ const Average=()=>{
             </ul>
 
             <div>
-                <b>평균값;</b> {getAvergae()}
+                <b>평균값;</b> {getAvergae}
 
             </div>
         </div>

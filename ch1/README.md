@@ -226,11 +226,15 @@ getDerivedStateFromProps는 props로 받아온 것을 state에 넣어주고 싶�
   랜더링하는 메서드
 
 
-
-
-
 * **componentDidMount** <br>
-컴포넌트의 첫 렌더링이 끝나고 나면 호출되는 메서드이고 우리가 만든 컴포넌트가 화면에 나타난 상태가 됩니다.
+업데이트 (render)가 완료되면  state를 저장한다음 componentWillMount를 호출합니다.
+우리가 만든 컴포넌트가 화면에 나타난 상태가 됩니다.
+
+<br>
+
+> 왜 componentWillMount를 호출할까요?
+    컴포넌트가 더이상 필요하지 않다는걸 알리기 위해서 호출하게 됩니다.
+
 
 
 <br>
@@ -241,7 +245,9 @@ getDriveStateFromProps를 통해서 컴포넌트의 props나 state가 바뀌었�
 
 * **shouldComponentUpdate** <br>
 이 메서드는 리랜더링하는 메서드입니다.
-주로 최적화 할때 사용합니다.
+즉 쓸데없는 update가 일어나면 여기서 걸러지게 됩니다.
+
+>주로 최적화 할때 사용합니다.
 
 
 * **Render** <br>
@@ -249,13 +255,19 @@ getDriveStateFromProps를 통해서 컴포넌트의 props나 state가 바뀌었�
 
 
 * **GetSnapshotBeforeUpdate** <br>
-컴포넌트에 변화가 일어나기 전에 DOM 상태를 가져와서 특정 값을 반환하면 그 다음 발생하게 되는 componentDidUpdate 함수에서 받아와서
-사용을 할 수 있다.
+가장 마지막으로 랜더링된 결과가 DOM에 반영되기 전에 호출 됩니다.<br>
+컴포넌트에 변화가 일어나기 전에 DOM 상태를 가져와서 특정 값을 반환하면 그 다음 발생하게 되는 componentDidUpdate 함수에서 받아와서 사용을 할 수 있습니다.
+
 
 
 * **componentDidUpdate** <br>
-화면에 우리가 원하는 변화가 모두 반영되고 난 뒤 호출되는 메서드
+화면에 우리가 원하는 변화가 모두 반영되고 render가 호출 된 후에 호출되는 메서드
+> componentDidUpdate 이전의 props에 대한 정보를 가지고 있습니다.
 
+
+
+<br>
+<br>
 
 ## componenetWillUnMount
 컴포넌트를 제거하고 DOM 이벤트를 전부 제거합니다.

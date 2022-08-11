@@ -1,9 +1,6 @@
 
 import './App.css';
-import Average from './useMemo_example';
-
-
-
+import Average from './ch3-1/UseMemoExample';
 
 function App() {
   return (
@@ -12,5 +9,6 @@ function App() {
     </div>
   );
 }
+
 
 export default App;
