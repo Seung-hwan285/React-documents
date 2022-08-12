@@ -217,7 +217,7 @@ export default function Parent(){
 
 ```js
 
-function ChildA({fname,lname}){
+const ChildA=({fname,lname})=>{
 
 
   return (
@@ -243,7 +243,7 @@ function ChildA({fname,lname}){
 
 ```js
 
-function ChildB({fname,lname}){
+const ChildB=({fname,lname})=>{
     return(
 
       <div>
@@ -266,7 +266,7 @@ function ChildB({fname,lname}){
 ```js
 
 
-function ChildC() {
+const ChildC=()=> {
 
 
     const {fName,lName} = useContext(context);
@@ -355,7 +355,7 @@ export default function Parent2(){
 }
 
 
-function ChildA() {
+const ChildA=()=> {
 
     return (
         <>
@@ -367,7 +367,7 @@ function ChildA() {
 }
 
 
-function ChildB() {
+const ChildB=()=> {
 
     return (
         <>
@@ -379,7 +379,7 @@ function ChildB() {
 }
 
 
-function ChildC() {
+const ChildC=()=> {
 
 
     const {fName,lName} = useContext(context);
@@ -592,24 +592,43 @@ props 와 state는 일반 js 객체입니다.
 <br>
 <br>
 
-## Classs State
+## Class State
 ```js
 import React, {Component} from 'react';
 
-class Counter extends Component{
 
-    constructor(props){
+class Counter extends Component {
+
+    constructor(props) {
         super(props); // constructor 정의 시 반드시 필요!
         this.state = { // state의 초기값 설정 부분
-            number:0
+            number: 0
         };
     }
 
-    this.setState=
+
+    onChangeNubmer() {
+        this.setState(
+            {number: number + 1}
+        );
+    }
+
+    render() {
+
+        const {number} =this.state;
+        return (
+            <div>
+
+                <button onClick={this.onChangeNubmer}>증가</button>
+                <div>{number}</div>
+            </div>
+        );
+    }
+
 }
 ```
 
-state의 이름과 초깃값을 constructor(생성자)에서 설정해주고 , render() 함수에서 this.setState 함수를 통해 state를 변경해 줄 수 있습니다.
+state의 이름과 초기값을 constructor(생성자)에서 설정해주고 , render() 함수에서 this.setState 함수를 통해 state를 변경해 줄 수 있습니다.
 
 
 <br>
@@ -1049,4 +1068,3 @@ CSS-in-js에 styled-component 방식과 CSS-in-css에 Sass,CSS-Module 은 분명
 개발 효율성에 중점을 두고 필요한 부분에 적용하는 컴포넌트 위주  프로젝트라면 `CSS-in–js` 방식을 주로 권장하고
 
 사용자 편의에 방점을 둔 인터렉티브한 웹 프로젝트라면 모든 css 스타일 요소를 로딩하는 `CSS-in–css` 방식을 권장합니다.
-

@@ -15,7 +15,6 @@ const Average=()=>{
         if(list.length ===0) return 0;
 
 
-        
 
         const sum = list.reduce((a,b)=>a+b);
 

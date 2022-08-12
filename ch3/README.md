@@ -7,6 +7,7 @@ useState를 이용해서 상태 변수를 선언 할 수 있습니다.
 또한 `useEffect()` 를 통해 리액트 클래스의 componentDidMount , componentDidUpdate , componentWillUnmount와 같은 라이프 사이클을 관리할 수 있습니다.
 
 
+
 <br>
 <br>
 
@@ -27,7 +28,6 @@ useState를 이용해서 상태 변수를 선언 할 수 있습니다.
 배열 자체가 제공되지 않으면 Hook는 다시 랜더링 할 때마다 평가됩니다.
 
 배열에 값이 제공되면 해당 값이 변경될 때 후크가 평가됩니다.
-
 
 
 ![](2022-08-11-10-52-51.png)
@@ -489,16 +489,105 @@ JS에서는 특정 DOM을 선택할 때 `getElmenyId` , `querySelector` 같은 D
 
 
 <br>
+
+
+## 자 그럼 예제 코드를 확인해보겠습니다.
+
+<br>
+
+```js
+
+function ManualCounter(){
+
+
+     // 배열 비구조화 할당
+    const [count, setCount] = useState(0);
+
+
+    // useRef로 값 초기화
+    const interValId = useRef(null);
+
+    console.log(`랜더링...count ${count}`);
+
+
+    //interValId.current로 해당 값이 자동으로 5초마다 증가하게 만들어줌 
+    // 이때 setInterval 사용
+
+    // setInterval : 함수를 주기적으로 실행
+    // setTimeOut : 함수를 한번만 실행
+    const stratCounter =()=>{
+        interValId.current=setInterval(()=>{
+            setCount((count)=> count+1);
+        },500);
+        
+        console.log(`시작...intervaild  : ${interValId.current}`);
+    }
+
+
+    const clearCounter=()=>{
+        clearInterval(interValId.current,1000);
+    }
+
+
+    return(
+
+        <main>
+            <p>자동 카운트 : {count}</p>
+
+            <button onClick={stratCounter}>시작</button>
+            <button onClick={clearCounter}>멈춤</button>
+            
+        </main>
+    );
+}
+
+export default ManualCounter;
+```
+
+
+
+<br>
 <br>
 
 
 # useCallback
 
+첫번째로 인자로 넘어온 함수를 , 두번째 인자로 넘어온 배열 내의 값이 변경될 때까지 저장해놓고 재사용할 수 있게 해줍니다.
 
+
+`useCallback`은 제공된 deps를 기준으로 반환된 함수 객체를 메모제이션 한다.
+즉 , 동일한 deps가 제공되면 (참조로 비교) 동일한 함수 객체를 반환한다.
+
+
+
+```js
+
+const memoizedCallback = useCallback(함수, 배열);
+
+```
+
+<br>
+
+
+예를들어 항상 동일한 결과값을 제공해주는 함수가 있다고 가정합니다.
+
+리액트를 개발하다보면 리 랜더링하는 상황이 찾아오는데 이때 항상 동일한 결과값을 제공해주는 함수들도 함께 렌더링이 일어납니다.
+
+이것은 다른 말로 똑같은 데이터를 지웠다가 똑같은 상태의 함수를 다시 생성하는 불필요한 작업을 뜻합니다.
+
+
+이런 상황에서 `메모제이션`을 사용하여 함수를 저장해 두고 있다면 다시 처음부터 만드는 것이 아니라 이미 만들어져 있는 함수를 가져오기만 한다면 더 빠른 속도로 렌더링 되는 것을 도와줍니다.
+
+
+
+
+# 의존 배열로 함수를 넘길 때
+많은 `React hook` 함수들이 불필요한 작업을 줄이기 위해서 두번째 인자로 , 첫번째 함수가 의존해야하는 배열을 받습니다.
+
+예를 들어 , `useEffect()` 함수는 두번째 인자로 넘어온 의존 배열이 변경될 때만 첫번째 인자로 넘어온 함수를 호출합니다.
 
 
 # useReducer
-
 
 
 

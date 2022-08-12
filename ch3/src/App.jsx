@@ -1,11 +1,13 @@
 
 import './App.css';
-import Average from './ch3-1/UseMemoExample';
+import Counter from './ch3-1/UserCallback';
+
 
 function App() {
   return (
     <div className="App">  
-      <Average/>
+    
+      <Counter/>
     </div>
   );
 }

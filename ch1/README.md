@@ -150,8 +150,13 @@ const Counter =()=>{
 
 - `Element` : 랜더링 될 JSX 표현식
 - `container` : 요소가 랜더링되는 컨테이너
-- `callback` : 추가적인 콜백함수 
+- `callback` : 추가적인 콜백함수 ( 선택 사항 :  함수를 전달할 수도 있음 )
 
+```js 
+ReactDOM.render(<App />,document.getElementById('root'),//callback 전달 ()=>{
+  console.log("rendered the root componnet");
+});
+```
 
 => 전달한 컨테이너 노드를 제어합니다.
 처음 호출 할때 기존의 DOM 요소를 교체하고 이후 호출은 React의 DOM diff 알고리즘을 사용해서 업데이트합니다.
@@ -227,12 +232,12 @@ getDerivedStateFromProps는 props로 받아온 것을 state에 넣어주고 싶�
 
 
 * **componentDidMount** <br>
-업데이트 (render)가 완료되면  state를 저장한다음 componentWillMount를 호출합니다.
+업데이트 (render)가 완료되면  state를 저장한다음 componentWillUnMount를 호출합니다.
 우리가 만든 컴포넌트가 화면에 나타난 상태가 됩니다.
 
 <br>
 
-> 왜 componentWillMount를 호출할까요?
+> 왜 componentWillUnMount를 호출할까요?
     컴포넌트가 더이상 필요하지 않다는걸 알리기 위해서 호출하게 됩니다.
 
 
@@ -281,6 +286,7 @@ getDriveStateFromProps를 통해서 컴포넌트의 props나 state가 바뀌었�
 <p align ="center"><img src="src/ch1-1/img/webpack_img.png"></p>
 
 
+<br>
 
 ### 웹펙이란?
 
@@ -288,8 +294,33 @@ getDriveStateFromProps를 통해서 컴포넌트의 props나 state가 바뀌었�
 즉 여러개로 나눠진 .js 파일을 html이 실행할 수 있는 하나의 .js파일로 합치는 라이브러리
 
 ## why?
-많은 파일을 다운 받으면 Network 부하가 커지고 같은 이름의 변수나 함수로 충돌 가능성이 있음
+**대표적으로 2가지가 있습니다.**
 
+
+<br>
+
+## 자바스크립트 변수 유효 범위를 해결
+웹펙은 변수 유효 범위 문제점을 웹펙의 모듈 번들링으로 해결합니다.
+자바스크립트는 기본적으로 전역 범위를 갖습니다. 최대한 넓은 변수 범위를 갖기 때문에 어디에서도 접근이 가능하죠
+그래서 복잡한 애플리케이션을 개발할때 의도치 않은 값을 할당하거나 중복으로 선언을 할 수 있씁니다.
+그래서 이러한 문제를 해결합니다.
+
+<br>
+
+
+
+## HTTP 요청 숫자의 제약을 줄여줍니다.
+Tcp 스펙에 따라 브라우저에서 한번에 서버로 보낼 수 있는 http 요청 숫자는 제약이 있습니다. 
+익스플로우는11은 최대 연결 횟수가 13번이였습니다. 그래서 익스플로우가 사용자 입장에서는 굉장히 느리고 불편한점이 많았습니다.
+
+하지만 크롬과 사파리 파이어폭스 최대 연결 횟수가 총 6번이 됩니다.
+따라서 http 요청 숫자를 줄이는 것이 웹 애플리케이션 성능을 높여줄 뿐만 아니라 사용자가 사이트를 조작하는 시간을 앞당깁니다.
+
+웹펙을 이용해서 여러 개 파일을 하나로 합치면 위와 같은 브라우저별 http 요청 숫자 제약을 피합니다.
+
+<br>
+
+![image](https://user-images.githubusercontent.com/74364667/184128133-0bf1b3e4-b0a4-425d-b8fc-48a631197b73.png)
 
 
 <br>
@@ -362,6 +393,7 @@ export const hello =(name)=>{
 }
 ```
 
+<br>
 
 ## webpack.config.js
 
@@ -407,14 +439,129 @@ module.exports={
 
 ```
 
+<br>
+
+# 위 웹펙 설정이 안될때가 있습니다.  아래 내용을 따라 해주시면 됩니다. 
+
+<br>
+
+# WebPack 
 
 <br>
 
 
+## 1. npm init -y
+package.json 파일 생성 -y를 함으로써 불필요한 `enter`키를 누를 필요 없음
 
-## 6. app.js 생성
-webPack이 설치가 되고 app.js가 생성이 되는걸 볼 수 있습니다.
+<br>
 
+## 2. npm install --save-dev webpack webpack-cli webpack-dev-server
+
+package.json 파일을 열고 , 기존에 있던 test 스크립트를 지우고 새로은 스크립트 **dev**를 추가해 개발 모드에서 웹펙이 실행되도록 설정 
+
+
+`npm run dev` 해보면 에러가 발생하는데 웹펙이 `entry point`로서 src/index.js 를 찾기 때문에 발생.
+
+즉 `dist`라는 폴더에 빌드한 파일들을 추가 
+
+<br>
+
+## 3. 새로운 폴더 src => index.js 생성
+그리고 이곳에 `console.log('hello')` 구문을 index.js 파일에 입력.
+
+<br>
+
+## 4. npm run dev
+정상적으로 `dist`라는 폴더 안에 `main.js` 파일이 빌드가 되는 것을 확인할 수 있습니다.
+
+<br>
+<br>
+
+# WebPack.config 설정
+
+## 1. Entry Point 변경
+만약 우리가 기본 `src`폴더가 아닌 `source/index.js` 파일을 보내기를 원하면 `entry` 속성을 추가하면 됩니다.
+
+
+2가지 방식중 아무거나 사용해도 무관합니다.
+
+ ```js
+const path = require('path')
+
+module.exports = {
+  entry: { index: path.resolve(__dirname, 'source', 'index.js') },
+}
+
+ ```
+ 
+ ```js
+ 
+ module.exports = {
+  entry: './source/index.js',
+}
+ ```
+ 
+ <br>
+ 
+ ## 2. npm install --save-dev html-webpack-plugin
+ 
+ 빌드 파일에 HTML 파일을 포함시켜야지 우리가 원하는 리액트를 실행시킬 수 있습니다.
+ 즉 모든 웹 애플리케이션에는 최소한 하나의 HTML이 존재하기 때문에 `HTML 플러그인`을 사용합니다.
+
+<br>
+
+`index.html` 라는 파일을 `src` 폴더에 만들고 아래 코드를 삽입합니다.
+
+
+
+<br>
+
+```js
+const HTMLWebpackPlugin = require('html-webpack-plugin')
+const path = require('path')
+
+module.exports = {
+  plugins: [
+    new HTMLWebpackPlugin({
+// 현재 경로 , src , index.html
+//resoleve : join과 같은 개념으로 경로들을 합쳐준다. 
+//join을 써도 무방하나 node.js이기 때문에 resolve를 쓰는걸 추천!
+
+    template: path.resolve(__dirname, 'src', 'index.html'),
+    }),
+  ],
+}
+```
+
+
+
+<br>
+<br>
+
+## 3. webpack Dev Server
+웹펙 데브 서버를 설정합니다.
+`package.json` 파일을 열고 서버를 시작하기 위한 새로운 스크립트를 추가합니다.
+이미 파일 빌드를 위한 `dev`가 있으므로 아래처럼 `start`라는 스크립트를 만듭니다.
+
+```js
+"scripts": {
+  "dev": "webpack --mode development",
+  "start": "webpack-dev-server --mode development --open"
+}
+```
+
+<br>
+<br>
+
+## 4. npm start
+브라우저를 열어 `localhost:8080` 을 확인합니다. 
+`index.html` 과 `main.js`가  포함되어 있는 걸 확인 할 수 있습니다.
+
+
+<br>
+
+## css와 sass 등 설정을 하기 위해서는 Webpack loader라는 것을 사용합니다.
+> 이 부분은 추후에 공부를 좀더 하고 추가해서 자료를 보충하겠습니다.
 
 <br>
 
@@ -435,7 +582,9 @@ webPack이 설치가 되고 app.js가 생성이 되는걸 볼 수 있습니다.
 
 
 
-<br>
+
+
+
 
 # Babel 설치
 
