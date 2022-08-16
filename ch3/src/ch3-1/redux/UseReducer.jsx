@@ -1,11 +1,15 @@
-import { useReducer } from "react";
+import { useReducer,useState } from "react";
+import React from "react";
 
-const initialState = {count: 0};
+const initialState = {
+  count: 0,
 
-const reduce1=(state, action)=> {
+};
+
+const reducer=(state, action)=> {
   switch (action.type) {
     case 'increment':
-      increase(count);
+    return {count : state.count +1};
     case 'decrement':
       return {count: state.count - 1};
     case 'divsion':
@@ -13,19 +17,27 @@ const reduce1=(state, action)=> {
     default:
       throw new Error();
   }
-
 }
 
 
 function Counter() {
-  const [state, dispatch] = useReducer(reduce1, initialState);
-  
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const [name,  setName]= useState('하이');
+
+
   return (
     <>
-      Count: {state.count}
+      Count: {state.count} <br/>
+
+
+      <br/>
+      Name : {name}
+
+      <br/>
       <button onClick={() => dispatch ({type: 'decrement'})}>-</button>
       <button onClick={() => dispatch ({type: 'increment'})}>+</button>
-        <button onClick={()=> dispatch ({type : 'divsion'})}>/</button>
+      <button onClick={()=> dispatch ({type : 'divsion'})}>/</button>
+      <button onClick={()=>setName('이름 변환')} >change</button>
     </>
   );
 }

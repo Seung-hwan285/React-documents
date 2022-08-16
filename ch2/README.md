@@ -324,8 +324,28 @@ Context에 포함된 React 컴포넌트인 Provider는  컴포넌트들에게 co
 `Provider 컴포넌트`는 `value prop`을 받아서 이 값을 하위에 있는 컴포넌트에게 전달합니다. 값을 전달받을 수 있는 컴포넌트의 수에 제한은 없습니다.
 
 
+- Context에 저장된 데이터를 하위 컴포넌트에게 전달하는 역할을 합니다.
+- 값을 전달할때는 value를 사용합니다.
+
+
 <br>
 <br>
+
+
+## Context.Consumer
+
+```js
+<MyContext.Consumer> 
+     
+     {value => /* render something based on the context value */} 
+
+</MyContext.Consumer>
+
+```
+
+
+- value 함수에 전달 된 매개변수 value는 트리 위의 Context에 가장 가까운 Provider prpops과 같습니다.
+
 
 
 ```js

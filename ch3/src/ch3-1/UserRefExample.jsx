@@ -15,7 +15,7 @@ function ManualCounter(){
 
     console.log(`랜더링...count ${count}`);
 
-
+    
     const stratCounter =()=>{
         interValId.current=setInterval(()=>{
             setCount((count)=> count+1);

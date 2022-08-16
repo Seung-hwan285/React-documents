@@ -29,7 +29,7 @@
 
 
 ## [Ch.4]
-- React HTTP
+- React Rest API 
 - Axios
 - SPA
 - Redux
