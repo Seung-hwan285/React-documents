@@ -9,7 +9,6 @@ import React, { useState, useRef } from 'react';
 
 function ManualCounter(){
 
-    
     const [count, setCount] = useState(0);
 
     const interValId = useRef(null);
@@ -29,9 +28,6 @@ function ManualCounter(){
     const clearCounter=()=>{
         clearInterval(interValId.current,1000);
     }
-
-
-
     return(
 
         <main>
@@ -41,7 +37,7 @@ function ManualCounter(){
             <button onClick={clearCounter}>멈춤</button>
             
         </main>
-    )
+    );
 }
 
 export default ManualCounter;

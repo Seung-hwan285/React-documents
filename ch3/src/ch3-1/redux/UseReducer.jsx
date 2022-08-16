@@ -2,15 +2,13 @@ import { useReducer } from "react";
 
 const initialState = {count: 0};
 
-function reduce1(state, action) {
+const reduce1=(state, action)=> {
   switch (action.type) {
     case 'increment':
-      return {count: state.count + 1};
+      increase(count);
     case 'decrement':
       return {count: state.count - 1};
-
     case 'divsion':
-        
         return {count: state.count / 2};
     default:
       throw new Error();
