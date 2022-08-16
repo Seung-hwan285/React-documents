@@ -636,8 +636,6 @@ function Component(){
     return num +1 ;
 
     },[item]);
-
-
 }
 
 ```
@@ -725,9 +723,95 @@ export default UseCallbackExample;
 
 
 # useReducer
+`useState` 의 대체함수가 `useReducer`입니다.
+`Redux`가 익숙하다면 이 Hook도 익숙하게 사용이 가능합니다.
+
+다수의 하윗값을 포함하는 복잡한 정적 로직을 만드는 경우 보통 useState보다 `useReducer`을 선호합니다.
+
+그리고 `useRecuer`은 컴포넌트 성능을 최적화 할 수 있게 하는데 , 이것은 콜백 대신 `dispatch`를 전달할 수 있기 때문입니다.
 
 
 
+
+아래 예제는 reducer을 사용해서 `state(상태관리)` 하게 되는 예제입니다.
+자세한 내용은 다음 장에 나오는 `Redux`를 학습하고 이 훅을 사용하면 이해가 빠릅니다.
+
+
+
+먼저 코드를 보겠습니다.
+reducer 함수에서 매개변수로 `state , action` 을 받고 있습니다.
+그리고 `switch`문으로 해당 action.type 이 `increment`인지 `decrement`인지 `divison`인지 판별을 해서 해당 count를 증가, 감소 , 나눗셈을 시켜줍니다.
+
+<br>
+
+
+### 초기 상태
+
+상태를 먼저 `useReducer` 사용해서 초기화 해줍니다.
+
+```js
+ const [state,dispatch] =useReducer(render , {count : initialState});
+```
+
+### reducer 함수
+해당 type을 처리할 리듀서 함수를 작성합니다.
+이때 `switch문` 이나 `if`문인 조건문으로 작성합니다.
+
+### render() 함수
+버튼을 클릭하면 해당 `dispatch`가 type을 따라서 `reducer` 함수로 이동하게 작성합니다.
+
+```js
+  return (
+    <>
+      Count: {state.count}
+      <button onClick={() => dispatch ({type: 'decrement'})}>-</button>
+      <button onClick={() => dispatch ({type: 'increment'})}>+</button>
+        <button onClick={()=> dispatch ({type : 'divsion'})}>/</button>
+    </>
+  );
+```
+
+
+<br>
+
+```js
+
+import { useReducer } from "react";
+
+const initialState = {count: 0};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'increment':
+      return {count: state.count + 1};
+    case 'decrement':
+      return {count: state.count - 1};
+
+    case 'divsion':
+        return {count: state.count / 2};
+    default:
+      throw new Error();
+  }
+
+}
+
+
+function Counter() {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  
+
+
+  return (
+    <>
+      Count: {state.count}
+      <button onClick={() => dispatch ({type: 'decrement'})}>-</button>
+      <button onClick={() => dispatch ({type: 'increment'})}>+</button>
+        <button onClick={()=> dispatch ({type : 'divsion'})}>/</button>
+    </>
+  );
+}
+export default Counter;
+```
 
 # useContext
 

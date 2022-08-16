@@ -1,10 +1,6 @@
 # React 세미나 요약본
 
-
-
-
 ## [Ch.1](https://github.com/Seung-hwan285/react-code/tree/master/ch1) 
-
 - 탄생 배경 , Virtual DOM
 - 각 컴포넌트 특징 
 - React DOM
@@ -27,10 +23,16 @@
 
 - useEffect()
 - useMemo()
-- useReducer()
-- useReducer()
 - useCallback()
+- useReducer()
 - useContext()
 
+
+## [Ch.4]
+- React HTTP
+- Axios
+- SPA
+- Redux
+- Redux Midleware
 
 

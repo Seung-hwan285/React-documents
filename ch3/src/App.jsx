@@ -1,6 +1,6 @@
 
 import './App.css';
-import UseCallbackExample from './ch3-1/UserCallback';
+import Counter from './ch3-1/UseReducer';
 
 
 function App() {
@@ -8,7 +8,10 @@ function App() {
     <div className="App">  
     
       {/* <Counter/> */}
-      <UseCallbackExample/>
+      {/* <UseCallbackExample/> */}
+  
+
+  <Counter/>
     </div>
   );
 }
