@@ -1,47 +1,55 @@
-import React from "react";
+import { useState, useEffect, useMemo, useCallback } from 'react';
 
-import { useState } from "react";
+function UseCallbackExample(params) {
 
-
-const funSet = new Set();
-
-const Counter = () => {
-    const [count, setCount] = useState(0)
-    const [otherCounter, setOtherCounter] = useState(0)
+    
+    const [value,setValue]= useState(0);
 
 
 
-    const increase=()=>{
-        setCount(count+1);
+    const handlerCallback=useCallback(()=>{
+
+
+        console.log(`${value}`);
+
+        return;
+    },[value]);
+
+    // useMemo(()=>{
+
+
+    //     console.log('의존성 배열이 변경되었습니다');
+    // },[handlerCallback]);
+
+
+    // useEffect(()=>{
+    //     console.log('의존성 배열이 변경되었습니다');
+    // },[handlerCallback]);
+
+
+
+    
+
+
+    const handlerClick=(e)=>{
+        setValue(e.target.value);
     }
 
-    const decrease=()=>{
-        setCount(count-1);
-    }
 
-
-    const incrementOtherCounter=()=>{
-        setOtherCounter(otherCounter+1);
-    }
-
-
-    funSet.add(increase);
-    funSet.add(decrease);
-    funSet.add(incrementOtherCounter);
-
-
-    console.log(funSet)
     return(
-
         <div>
+            <input
+                in="input"
+                type="number"
+                value={value}
 
-            {count}
-            <button onClick={increase}>증가</button>
-            <button onClick={decrease}>감소</button>
-
-            <button onClick={incrementOtherCounter}>incrementOtherCounter</button>
+                onChange={handlerClick}
+            />
+    
+        <button onClick={handlerCallback}>확인</button>
+ 
         </div>
-    )
-}
+    );
 
-export default Counter;
+}
+export default UseCallbackExample;

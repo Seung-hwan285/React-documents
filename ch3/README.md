@@ -11,6 +11,17 @@ useState를 이용해서 상태 변수를 선언 할 수 있습니다.
 <br>
 <br>
 
+
+# 컴포넌트 랜더링
+컴포넌트가 랜더링 된다는 것은 누군가가 그 함수를 호출하여 실행되는 것을 말합니다.
+함수가 실행 될 때마다 내부에 선언되어 있던 표현식`( 변수 , 또 다른 함수)`도 매번 다시 선언되어 사용하고 컴포넌트는 자신의 `state`가 변경되거나 `props`로 전달받을때 리랜더링 됩니다.
+
+또한  하위 컴포넌트에게 최적화 설정을 해주지 않으면 기본적으로 부모에게 받은 props가 변경되지 않더라도 리랜더링 되는게 `기본`입니다. => 이때  최적화를 위해 사용하는 것이 `useMemo` 입니다.
+
+
+하지만 함수는 
+<br>
+
 # componentDidMount 
 빈 종속성 배열이 있는 useEffect가 이방법을 대체합니다.
 배열에 값이 제공되지 않으면 마운트(랜더링) 시 후크만 평가합니다.
@@ -277,6 +288,8 @@ useMemo를 알아보기전에 알고리즘에 `Memoization`에 대해서 알아�
 
 즉 useMemo는 이 메모제이션 방식을 사용해서 메모리에 담아두었다가 특정 값이 바뀌었을 때 연산을 동작하게 하는 방식입니다.
 
+결국 useMemo는 값을 반환합니다.
+
 
 
 
@@ -366,6 +379,9 @@ const Average=()=>{
 export default Average;
 ```
 
+글자 입력 시에도 `getAvergae` 함수가 동작하기 때문에 콘솔창에 '평균값 계산중' 이라고 나오게 됩니다.
+그리고 버튼 입력 시에도 `getAverage` 함수가 동작 하기 때문에 콘솔창에 '평균값 계산중' 이 나오게 되는데
+종합적으로 , `getAverage` 함수가 필요하지 않는 곳에서 작동이 되는 현상이 발생합니다.
 
 <br>
 <br>
@@ -434,9 +450,6 @@ export default Average;
 <br>
 <br>
 
-글자 입력 시에도 `getAvergae` 함수가 동작하기 때문에 콘솔창에 '평균값 계산중' 이라고 나오게 됩니다.
-그리고 버튼 입력 시에도 `getAverage` 함수가 동작 하기 때문에 콘솔창에 '평균값 계산중' 이 나오게 되는데
-종합적으로 , `getAverage` 함수가 필요하지 않는 곳에서 작동이 되는 현상이 발생합니다.
 
 
 <br>
@@ -552,39 +565,163 @@ export default ManualCounter;
 
 # useCallback
 
+## Callback 
+콜백함수라는 것은 인자로 함수를 전달하게 되면 콜백함수라 부릅니다.
+그리고 비동기 방식으로 작성된 함수를 동기적으로 실행하기 위해서 리액트에서 자주 쓰입니다.
+
+```js
+
+function Parent(test){
+
+    Child('test');
+}
+
+
+// 콜백함수
+function Child(test2){
+    console.log('콜백');
+}
+
+
+
+Parent(Child); // 콜백
+
+```
+
 첫번째로 인자로 넘어온 함수를 , 두번째 인자로 넘어온 배열 내의 값이 변경될 때까지 저장해놓고 재사용할 수 있게 해줍니다.
 
+
+그리고 하위 컴포넌트에게 최적화 설정을 해주지 않으면 기본적으로 부모에게 받은 props가 변경되지 않더라도 리랜더링 되는게 `기본`입니다.
 
 `useCallback`은 제공된 deps를 기준으로 반환된 함수 객체를 메모제이션 한다.
 즉 , 동일한 deps가 제공되면 (참조로 비교) 동일한 함수 객체를 반환한다.
 
 
+결국 함수를 반환합니다.
+
+
+만약 상위 컴포넌트에서 `callback` 함수를 재선언한다면 props로 callback 함수를 넘겨받는 하위 컴포넌트 입장에서는 `props`가 변경 되었다고 인식합니다.
+
+이때 사용하는 것이  `useCallback`입니다.
 
 ```js
 
 const memoizedCallback = useCallback(함수, 배열);
 
+
+
+```
+
+
+아래 함수를 상위컴포넌트에서 props로 인해 하위컴포넌트로 계속 불러오게 된다면 , 리랜더링이 발생하여 새로운 함수가 계속 랜더링 됩니다.
+
+```js
+
+function Component(){
+    return num +1;
+}
+
 ```
 
 <br>
 
+이때 아래와 같이 사용을 해서 함수를 `메모제이션에` 담아두었다가 의존성 배열인 item이 변경이 되면 그때 랜더링이 발생하게 됩니다.
 
-예를들어 항상 동일한 결과값을 제공해주는 함수가 있다고 가정합니다.
+```js
 
-리액트를 개발하다보면 리 랜더링하는 상황이 찾아오는데 이때 항상 동일한 결과값을 제공해주는 함수들도 함께 렌더링이 일어납니다.
+function Component(){
 
-이것은 다른 말로 똑같은 데이터를 지웠다가 똑같은 상태의 함수를 다시 생성하는 불필요한 작업을 뜻합니다.
+    const calculate =useCallback((num)=>{
+
+    return num +1 ;
+
+    },[item]);
 
 
-이런 상황에서 `메모제이션`을 사용하여 함수를 저장해 두고 있다면 다시 처음부터 만드는 것이 아니라 이미 만들어져 있는 함수를 가져오기만 한다면 더 빠른 속도로 렌더링 되는 것을 도와줍니다.
+}
+
+```
+
+
+# 실전 예제
+
+useCallback에 대한 예를 명확하게 보기 위해서 앞서 배웠던 `useEffect` , `useMemo`를 의존성 배열에 콜백함수로 전달을 해보았습니다.
+
+이렇게 해서 실행을 해보면 어떤 결과가 나올까요?
+
+둘다 의존성 배열에 `값`을 넣는 훅이기 때문에 무슨 짓을 해도 계속 리랜더링이 발생이 됩니다.
+
+```js
+import { useState, useEffect, useMemo } from 'react';
+
+function UseCallbackExample(params) {
+
+    
+    const [value,setValue]= useState(0);
+
+
+    const handlerCallback=()=>{
+
+        console.log(`${value}`);
+        return;
+    }
+
+    // useMemo(()=>{
+
+
+    //     console.log('의존성 배열이 변경되었습니다');
+    // },[handlerCallback]);
+
+
+    // useEffect(()=>{
+    //     console.log('의존성 배열이 변경되었습니다');
+    // },[handlerCallback]);
+
+    const handlerClick=(e)=>{
+        setValue(e.target.value);
+    }
+
+
+    return(
+        <div>
+            <input
+                in="input"
+                type="number"
+                value={value}
+
+                onChange={handlerClick}
+            />
+    
+        <button onClick={handlerCallback}>확인</button>
+ 
+        </div>
+    );
+
+}
+export default UseCallbackExample;
+```
+
+하지만 아래처럼 `useCallback` 훅을 사용해서 콜백함수를 반환하게 만들어주고 의존성 배열에는 value 값이 변경되게 만들어주면 더이상 리랜더링이 발생하지 않고 `확인`버튼이 눌렀을때만 랜더링이 발생하게 됩니다. 
+
+
+```js
+    const handlerCallback=useCallback(()=>{
+
+
+        console.log(`${value}`);
+
+        return;
+    },[value]);
+```
+
+그리고 useMemo , usecallBack은 랜더링 성능을 높여준다고 알고 있지만 ,
+사실상 반환되는 값이나 함수에 코드가 복잡한 로직이 아니라면 미미하다고 합니다.
+
+즉 공식문서에도 나와 있듯이 복잡한 로직을 반환하는게 아니라면 사용을 권장하지 않습니다.
 
 
 
 
-# 의존 배열로 함수를 넘길 때
-많은 `React hook` 함수들이 불필요한 작업을 줄이기 위해서 두번째 인자로 , 첫번째 함수가 의존해야하는 배열을 받습니다.
-
-예를 들어 , `useEffect()` 함수는 두번째 인자로 넘어온 의존 배열이 변경될 때만 첫번째 인자로 넘어온 함수를 호출합니다.
 
 
 # useReducer
