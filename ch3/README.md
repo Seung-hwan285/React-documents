@@ -813,7 +813,98 @@ function Counter() {
 export default Counter;
 ```
 
+
+<br>
+<br>
+
+
 # useContext
+context 객체을 받아 그 context의 현재 값을 반환합니다.
+context의 현재 값은 트리 안에서 이 hook을 호출하는 컴포넌트에 가장 가까이 있는 `<MyContext.Provider>`의 `value prop`에 의해 결정됩니다.
+
+그리고 `useContext`를 호출한 컴포넌트는 context 값이 변경되면 항상 `리랜더링` 될 것 입니다.
+
+
+## Tip
+useContext()는 <MyContext.Consumer>와 같습니다.
 
 
 
+
+```js
+const value = useContext(MyContext);
+```
+
+
+
+## 실전 예제 
+
+코드 설명은 주석을 통해 확인
+
+```js
+
+// 색 변경해줄 themes 객체
+const themes = {
+  light: {
+    foreground: "#000000",
+    background: "white"
+  },
+  blue: {
+    foreground: "#ffffff",
+    background: "blue"
+  }
+};
+
+
+// Context 기본값 초기화
+const ThemeContext = React.createContext('');
+
+function App() {
+  return (
+    // ThemeContexxt.Provider로 해당 theme.blue를 하위 컴포넌트에 전달
+    <ThemeContext.Provider value={themes.blue}>
+      <Toolbar />
+    </ThemeContext.Provider>
+  );
+}
+
+// theme.blue 전달받음 !
+function Toolbar() {
+  return (
+    <div>
+      <ThemedButton />
+    </div>
+  );
+}
+
+
+// theme.blue 전달받음 !
+function ThemedButton() {
+
+  return (
+    <div>
+      <ThemedButton2/>
+    </div>
+  );
+}
+
+
+// theme.blue 전달받음!
+function ThemedButton2(){
+
+// 해당 데이터 꺼내오기 => them.blue
+  const theme = useContext(ThemeContext);
+  console.log(theme);
+
+  // 꺼내온 데이터 적용!
+  return(
+    <button style={{background:theme.background , color: theme.foreground}}>
+      hey button!!!
+    </button>
+  );
+}
+
+```
+
+## 주의할점
+useContext에 전달되는 인자는 `context 객체` 이어야 합니다.
