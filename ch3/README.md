@@ -18,7 +18,6 @@ useState를 이용해서 상태 변수를 선언 할 수 있습니다.
 또한  하위 컴포넌트에게 최적화 설정을 해주지 않으면 기본적으로 부모에게 받은 props가 변경되지 않더라도 리랜더링 되는게 `기본`입니다. => 이때  최적화를 위해 사용하는 것이 `useMemo` ,`useCallback` 입니다.
 
 
-하지만 함수는 
 <br>
 
 # componentDidMount 
@@ -177,7 +176,7 @@ const NumberRender=()=>{
 
 
     const [number,setNumber] = useState(0);
-    const [name,setName]= useState('Jeno Seung Hwan');
+    const [name,setName]= useState('Jeon Seung Hwan');
 
 
     useEffect(()=>{
@@ -240,7 +239,7 @@ const NumberRender=()=>{
 
 
     const [number,setNumber] = useState(0);
-    const [name,setName]= useState('Jeno Seung Hwan');
+    const [name,setName]= useState('Jeon Seung Hwan');
 
 
     useEffect(()=>{
