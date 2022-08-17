@@ -461,7 +461,21 @@ export default Average;
 <br>
 
 useMemo는 메모제이션 방식을 사용해서 값을 업데이트를 합니다.
-즉 , useEffect로 값을 업데이트 하는 동시에 성능을 향상 시키고 싶다면 useMemo를 사용해서 이를 개선할 수 있습니다.
+즉 , useEffect로 값을 업데이트 하는 동시에 복잡한 (비싼) 값에 성능을 향상 시키고 싶다면 useMemo를 사용해서 이를 개선할 수 있습니다.
+
+
+ 즉 아래와 같은 count1 값을 처리할때는 `useEffect()`보다는 useMemo() 사용을 권장합니다.
+
+ <br>
+
+```js
+const [count1, setCount1] = useState(0);
+const [expensiveValue, setExpensiveValue] = useState(null);
+useEffect(() => {
+    console.log("I am performing expensive computation");
+    setExpensiveValue(((count1 * 1000) % 12.4) * 51000 - 4000);
+  }, [count1]);
+```
 
 <br>
 
@@ -469,7 +483,7 @@ useMemo는 메모제이션 방식을 사용해서 값을 업데이트를 합니�
 
 <br>
 
-- `useMemo` : deps 배열의 요소가 변경되거나 베열이 생략된 경우 랜더링 전에 호출이 됩니다. 즉 `랜더링을 이전`에 하기 때문에 성능을 효율적으로 사용 할 수 있습니다.
+- `useMemo` : deps 배열의 요소가 변경되거나 베열이 생략된 경우 랜더링 전에 호출이 됩니다. 즉 `랜더링을 중`에 하기 때문에 성능을 효율적으로 사용 할 수 있습니다.
 
 
 <br>
@@ -954,15 +968,16 @@ useContext에 전달되는 인자는 `context 객체` 이어야 합니다.
 <br>
 
 - useEffect()
-    1. state, props를 deps 로 지정하면 불필요한 랜더링 발생 가능 
-    2. 모든 랜더링이 완료된 후에 실행
+    1.  모든 의존성 배열요소가 변경되었거나 배열이 생략된 경우 
+    모든 랜더링이 완료된 후에 실행합니다.
+    
+    
 
 <br>
 
 - useMemo()
-    1. useMemo에서 전달된 함수는 랜더링 중에 실행되므로 , 랜더링 중에서 실행하지 않는 함수는 useEffect()를 사용<br>
-    2. state나 props를 dpes로 지정하면 , 불필요한 랜더링 발생 가능<br>
-    3. meoization된 `값`을 반환
+    1. 의존성 배열의 요소가 변경된 경우에만 값을 다시 계산합니다. 그리고 함수를 호출해도 리랜더링 되지 않습니다.
+    2. meoization된 `값`을 반환
 
 
 <br>
