@@ -490,6 +490,8 @@ JS에서는 특정 DOM을 선택할 때 `getElmenyId` , `querySelector` 같은 D
 
 
 이때 리액트에서는 `ref` 라는 것을 사용합니다.
+그리고 `useRef`는 아무리 컴포넌트가 랜더링 되어도 계속 값을 유지합니다. 즉 컴포넌트 브라우저의 마운팅 된 시점부터 마운트 해제 될때까지 같은 값을 계속 유지할 수 있습니다.
+
 
 <br>
 
@@ -510,52 +512,73 @@ JS에서는 특정 DOM을 선택할 때 `getElmenyId` , `querySelector` 같은 D
 
 ```js
 
-function ManualCounter(){
 
+function useRefRender() {
+  const [render, setRender] = useState(false);
+  const countRef = useRef(0);
+  let countVar = 0;
 
-     // 배열 비구조화 할당
-    const [count, setCount] = useState(0);
+  
+  console.log('***** 렌더링 후 Ref:', countRef.current);
+  console.log('***** 렌더링 후 Var:', countVar);
+  
+  const increaseRef = () => {
+    countRef.current = countRef.current + 1;
+    console.log('Ref Up! --->', countRef.current);
+  }
 
+  const increaseVar = () => {
+    countVar = countVar + 1;
+    console.log('Var Up! --->', countVar);
+  }
 
-    // useRef로 값 초기화
-    const interValId = useRef(null);
+  const doRender = () => {
+    setRender(!render);
+  }
 
-    console.log(`랜더링...count ${count}`);
-
-
-    //interValId.current로 해당 값이 자동으로 5초마다 증가하게 만들어줌 
-    // 이때 setInterval 사용
-
-    // setInterval : 함수를 주기적으로 실행
-    // setTimeOut : 함수를 한번만 실행
-    const stratCounter =()=>{
-        interValId.current=setInterval(()=>{
-            setCount((count)=> count+1);
-        },500);
+  return (
+    <div className="App">
+      <header className="App-header">
+        <p>Ref: {countRef.current}</p>
+        <p>Var: {countVar}</p>
         
-        console.log(`시작...intervaild  : ${interValId.current}`);
-    }
-
-
-    const clearCounter=()=>{
-        clearInterval(interValId.current,1000);
-    }
-
-
-    return(
-
-        <main>
-            <p>자동 카운트 : {count}</p>
-
-            <button onClick={stratCounter}>시작</button>
-            <button onClick={clearCounter}>멈춤</button>
-            
-        </main>
-    );
+        <div>
+          <button onClick={increaseRef}>Ref Up!</button>
+          <button onClick={increaseVar}>Var Up!</button>
+          <button onClick={doRender}>Render!</button>
+        </div>
+      </header>
+  </div>
+  );
 }
 
-export default ManualCounter;
+
 ```
+
+
+
+![](2022-08-17-13-18-22.png)
+
+처음 빌드했을때 모습입니다. 현재 랜더링 후 Ref , Var이 출력되는걸 볼 수 있습니다.
+
+차례대로 Ref up 버튼부터 눌러서 동작이 어떻게 되는지 알아봅시다.
+
+
+![](2022-08-17-13-19-36.png)
+
+Ref 버튼을 눌렀을때 현재 화면에 Ref값은 변하지 않지만 console.log출력을 보면 `countRef` 값이 변경되어 출력되는걸 확인 할 수 있습니다.
+
+
+
+![](2022-08-17-13-21-04.png)
+마찬가지로 Var 버튼을 눌러줍니다. 위와 같이 동일하게 작동을 합니다.
+
+
+![](2022-08-17-13-24-50.png)
+Render! 버튼을 누르고 로그창을 보면 Ref값은 마운트가 해제되어도 동일한 값이 나오고 있는 반면에 Var 값은 컴포넌트가 랜더링되면서 변수들이 초기화 되면서 Var값은 0이 됩니다.
+
+
+즉 우리는 ref라는 상자에 변수를 담아두고 관리를 하고 있기 때문에 리랜더링이 일어나거나  마운트를 해제해도 값이 남아 있습니다.
 
 
 
@@ -757,7 +780,9 @@ reducer 함수에서 매개변수로 `state , action` 을 받고 있습니다.
 
 ### reducer 함수
 해당 type을 처리할 리듀서 함수를 작성합니다.
-이때 `switch문` 이나 `if`문인 조건문으로 작성합니다.
+이부분은 State 업데이트 로직을 작성한다고 생각하면 쉽습니다.
+
+즉 State 업데이트 로직을 분리 시킵니다.
 
 ### render() 함수
 버튼을 클릭하면 해당 `dispatch`가 type을 따라서 `reducer` 함수로 이동하게 작성합니다.
@@ -778,37 +803,43 @@ reducer 함수에서 매개변수로 `state , action` 을 받고 있습니다.
 
 ```js
 
-import { useReducer } from "react";
+import { useReducer,useState } from "react";
+import React from "react";
 
-const initialState = {count: 0};
 
-function reducer(state, action) {
+
+const reducer=(state, action)=> {
   switch (action.type) {
     case 'increment':
-      return {count: state.count + 1};
+    return state +1;
     case 'decrement':
-      return {count: state.count - 1};
-
+      return state - 1;
     case 'divsion':
-        return {count: state.count / 2};
+        return state / 2;
     default:
       throw new Error();
   }
-
 }
 
 
 function Counter() {
-  const [state, dispatch] = useReducer(reducer, initialState);
-  
+  const [number, dispatch] = useReducer(reducer, 0);
+  const [name,  setName]= useState('하이');
 
 
   return (
     <>
-      Count: {state.count}
+      Count: {number} <br/>
+
+
+      <br/>
+      Name : {name}
+
+      <br/>
       <button onClick={() => dispatch ({type: 'decrement'})}>-</button>
       <button onClick={() => dispatch ({type: 'increment'})}>+</button>
-        <button onClick={()=> dispatch ({type : 'divsion'})}>/</button>
+      <button onClick={()=> dispatch ({type : 'divsion'})}>/</button>
+      <button onClick={()=>setName('이름 변환')} >change</button>
     </>
   );
 }

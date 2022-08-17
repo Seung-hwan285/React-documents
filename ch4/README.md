@@ -23,6 +23,8 @@ const [post,setPost] = useState('');
 
 본격적으로 리액트 Rest API를 알아보기전에 `Fetch()` , `Axios`에 대해 간단하게 짚고 넘어가겠습니다.
 
+
+
 <br>
 
 일반적인 자바스크립트에서 API를 연동하기 위해서는 `Fetch API`를 사용하곤 했습니다.

@@ -1,19 +1,16 @@
 import { useReducer,useState } from "react";
 import React from "react";
 
-const initialState = {
-  count: 0,
 
-};
 
 const reducer=(state, action)=> {
   switch (action.type) {
     case 'increment':
-    return {count : state.count +1};
+    return state +1;
     case 'decrement':
-      return {count: state.count - 1};
+      return state - 1;
     case 'divsion':
-        return {count: state.count / 2};
+        return state / 2;
     default:
       throw new Error();
   }
@@ -21,13 +18,13 @@ const reducer=(state, action)=> {
 
 
 function Counter() {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [number, dispatch] = useReducer(reducer, 0);
   const [name,  setName]= useState('하이');
 
 
   return (
     <>
-      Count: {state.count} <br/>
+      Count: {number} <br/>
 
 
       <br/>
