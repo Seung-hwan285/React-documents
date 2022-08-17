@@ -775,8 +775,12 @@ reducer 함수에서 매개변수로 `state , action` 을 받고 있습니다.
 상태를 먼저 `useReducer` 사용해서 초기화 해줍니다.
 
 ```js
- const [state,dispatch] =useReducer(render , {count : initialState});
+ const [state,dispatch] =useReducer(render , 0);
 ```
+
+
+![](2022-08-17-14-19-36.png)
+
 
 ### reducer 함수
 해당 type을 처리할 리듀서 함수를 작성합니다.
@@ -941,3 +945,30 @@ function ThemedButton2(){
 
 ## 주의할점
 useContext에 전달되는 인자는 `context 객체` 이어야 합니다.
+
+
+<br>
+<br>
+
+# useEffect vs useMemo vs useCallback
+자 그럼 3가지 전부 의존성배열 즉 deps를 이용해서 랜더링을 관리하는데 3가지 차이점은 무엇일까?
+
+<br>
+
+- useEffect()
+    1. state, props를 deps 로 지정하면 불필요한 랜더링 발생 가능 
+    2. 모든 랜더링이 완료된 후에 실행
+
+<br>
+
+- useMemo()
+    1. useMemo에서 전달된 함수는 랜더링 중에 실행되므로 , 랜더링 중에서 실행하지 않는 함수는 useEffect()를 사용<br>
+    2. state나 props를 dpes로 지정하면 , 불필요한 랜더링 발생 가능<br>
+    3. meoization된 `값`을 반환
+
+
+<br>
+
+- useCallback()
+    1. memoization된 `함수`를 반환
+    2. deps가 변경되는 경우 이전에 함수 자체와 비교해서 다른경우에만 리랜더링
