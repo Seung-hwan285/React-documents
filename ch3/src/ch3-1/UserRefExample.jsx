@@ -8,9 +8,6 @@ import { useRef } from 'react';
 // current 속성에 할당합니다. 
 // current 속성은 값을 변경해도 상태를 변경 할때 처럼 React 컴포넌트가 
 // 다시 랜더링 되지 않습니다.
-
-
-
 function RefRender() {
     const [render, setRender] = useState(false);
     const countRef = useRef(0);

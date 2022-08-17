@@ -6,17 +6,16 @@ useState를 이용해서 상태 변수를 선언 할 수 있습니다.
 
 또한 `useEffect()` 를 통해 리액트 클래스의 componentDidMount , componentDidUpdate , componentWillUnmount와 같은 라이프 사이클을 관리할 수 있습니다.
 
-
-
 <br>
 <br>
 
 
 # 컴포넌트 랜더링
 컴포넌트가 랜더링 된다는 것은 누군가가 그 함수를 호출하여 실행되는 것을 말합니다.
+
 함수가 실행 될 때마다 내부에 선언되어 있던 표현식`( 변수 , 또 다른 함수)`도 매번 다시 선언되어 사용하고 컴포넌트는 자신의 `state`가 변경되거나 `props`로 전달받을때 리랜더링 됩니다.
 
-또한  하위 컴포넌트에게 최적화 설정을 해주지 않으면 기본적으로 부모에게 받은 props가 변경되지 않더라도 리랜더링 되는게 `기본`입니다. => 이때  최적화를 위해 사용하는 것이 `useMemo` 입니다.
+또한  하위 컴포넌트에게 최적화 설정을 해주지 않으면 기본적으로 부모에게 받은 props가 변경되지 않더라도 리랜더링 되는게 `기본`입니다. => 이때  최적화를 위해 사용하는 것이 `useMemo` ,`useCallback` 입니다.
 
 
 하지만 함수는 
@@ -24,7 +23,7 @@ useState를 이용해서 상태 변수를 선언 할 수 있습니다.
 
 # componentDidMount 
 빈 종속성 배열이 있는 useEffect가 이방법을 대체합니다.
-배열에 값이 제공되지 않으면 마운트(랜더링) 시 후크만 평가합니다.
+배열에 값이 제공되지 않으면 마운트(랜더링) 시 훅만 평가합니다.
 
 ![](2022-08-11-10-08-26.png)
 
@@ -38,7 +37,7 @@ useState를 이용해서 상태 변수를 선언 할 수 있습니다.
 
 배열 자체가 제공되지 않으면 Hook는 다시 랜더링 할 때마다 평가됩니다.
 
-배열에 값이 제공되면 해당 값이 변경될 때 후크가 평가됩니다.
+배열에 값이 제공되면 해당 값이 변경될 때 훅이 평가됩니다.
 
 
 ![](2022-08-11-10-52-51.png)
@@ -500,7 +499,7 @@ JS에서는 특정 DOM을 선택할 때 `getElmenyId` , `querySelector` 같은 D
 
 <br>
 
-본질적으로 **useRef** 즉 `ref`는 .current 프로퍼티에 변경 가능한 값을 담고 있는 상자와 같습니다.
+본질적으로 **useRef** 즉 `ref`는 .current `current` 프로퍼티에 변경 가능한 값을 담고 있는 상자와 같습니다.
 
 
 <br>
@@ -513,7 +512,7 @@ JS에서는 특정 DOM을 선택할 때 `getElmenyId` , `querySelector` 같은 D
 ```js
 
 
-function useRefRender() {
+const RefRenderExample=()=> {
   const [render, setRender] = useState(false);
   const countRef = useRef(0);
   let countVar = 0;
@@ -552,6 +551,7 @@ function useRefRender() {
   );
 }
 
+export default RefRenderExample;
 
 ```
 
@@ -675,7 +675,7 @@ useCallback에 대한 예를 명확하게 보기 위해서 앞서 배웠던 `use
 ```js
 import { useState, useEffect, useMemo } from 'react';
 
-function UseCallbackExample(params) {
+const CallbackExample(params) {
 
     
     const [value,setValue]= useState(0);
@@ -719,7 +719,7 @@ function UseCallbackExample(params) {
     );
 
 }
-export default UseCallbackExample;
+export default CallbackExample;
 ```
 
 하지만 아래처럼 `useCallback` 훅을 사용해서 콜백함수를 반환하게 만들어주고 의존성 배열에는 value 값이 변경되게 만들어주면 더이상 리랜더링이 발생하지 않고 `확인`버튼이 눌렀을때만 랜더링이 발생하게 됩니다. 
@@ -751,9 +751,9 @@ export default UseCallbackExample;
 `useState` 의 대체함수가 `useReducer`입니다.
 `Redux`가 익숙하다면 이 Hook도 익숙하게 사용이 가능합니다.
 
-다수의 하윗값을 포함하는 복잡한 정적 로직을 만드는 경우 보통 useState보다 `useReducer`을 선호합니다.
+다수의 하위값을 포함하는 복잡한 정적 로직을 만드는 경우 보통 useState보다 `useReducer`를 선호합니다.
 
-그리고 `useRecuer`은 컴포넌트 성능을 최적화 할 수 있게 하는데 , 이것은 콜백 대신 `dispatch`를 전달할 수 있기 때문입니다.
+그리고 `useRecuer`은 컴포넌트 성능을 최적화할 수 있게 하는데, 이것은 콜백 대신 `dispatch`를 전달할 수 있기 때문입니다.
 
 
 
@@ -765,8 +765,7 @@ export default UseCallbackExample;
 
 먼저 코드를 보겠습니다.
 reducer 함수에서 매개변수로 `state , action` 을 받고 있습니다.
-그리고 `switch`문으로 해당 action.type 이 `increment`인지 `decrement`인지 `divison`인지 판별을 해서 해당 count를 증가, 감소 , 나눗셈을 시켜줍니다.
-
+그리고 `switch`문으로 해당 action.type 이 `increment`인지 `decrement`인지 `divison`인지 판별을 해서 해당 count를 증가, 감소 , 나눗셈을 시켜줌
 <br>
 
 
@@ -856,10 +855,10 @@ export default Counter;
 
 
 # useContext
-context 객체을 받아 그 context의 현재 값을 반환합니다.
-context의 현재 값은 트리 안에서 이 hook을 호출하는 컴포넌트에 가장 가까이 있는 `<MyContext.Provider>`의 `value prop`에 의해 결정됩니다.
+context 객체를 받아 그 context의 현재 값을 반환합니다.
+context의 현재 값은 트리 안에서 이 hook을 호출하는 컴포넌트에 가장 가까이 있는 `&lt;`<MyContext.Provider>`의 `value prop`에 의해 결정됩니다.
 
-그리고 `useContext`를 호출한 컴포넌트는 context 값이 변경되면 항상 `리랜더링` 될 것 입니다.
+그리고 `useContext`를 호출한 컴포넌트는 context 값이 변경되면 항상 `리랜더링` 될 것입니다.
 
 
 ## Tip
