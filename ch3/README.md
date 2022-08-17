@@ -475,7 +475,20 @@ useEffect(() => {
     console.log("I am performing expensive computation");
     setExpensiveValue(((count1 * 1000) % 12.4) * 51000 - 4000);
   }, [count1]);
+
+
+
+// useMemo 사용 함수
+//  const handlerCount=useMemo(()=>{
+//       console.log("I am performing expensive computation");
+
+//       setExpensiveValue((count1 * 1000)% 12.4)  * 51000 - 4000);
+//  },[count1]);
+
+    
+
 ```
+
 
 <br>
 
