@@ -1,5 +1,5 @@
 # React Rest API
-리액트에서 API를 사용하는 것은 Javascipt에서 사용하는 방법괄 매우 다릅니다.
+리액트에서 API를 사용하는 것은 Javascipt에서 사용하는 방법과 매우 다릅니다.
 2가지 주요 `React.Hook`을 사용합니다.
 
 
@@ -85,7 +85,7 @@ axios.get('url')
 
 # Fetch api (GET) 
 
-리액트에서 fetch 를 통해서 api를 통해서 GET을 어떻게 사용하는지 알아보겠습니다.
+리액트에서 fetch api를 사용해서 GET을 어떻게 사용하는지 알아보겠습니다.
 먼저 작업이 `useEffect()` 상태에서 발생하여 애플리케이션이 로드 되는 즉시 데이터를 가져와줍니다.
 
 

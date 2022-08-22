@@ -654,11 +654,7 @@ Parent(Child); // 콜백
 이때 사용하는 것이  `useCallback`입니다.
 
 ```js
-
 const memoizedCallback = useCallback(함수, 배열);
-
-
-
 ```
 
 
@@ -882,7 +878,7 @@ export default Counter;
 
 # useContext
 context 객체를 받아 그 context의 현재 값을 반환합니다.
-context의 현재 값은 트리 안에서 이 hook을 호출하는 컴포넌트에 가장 가까이 있는 `&lt;`<MyContext.Provider>`의 `value prop`에 의해 결정됩니다.
+context의 현재 값은 트리 안에서 이 hook을 호출하는 컴포넌트에 가장 가까이 있는 `<MyContext.Provider>`의 `value prop`에 의해 결정됩니다.
 
 그리고 `useContext`를 호출한 컴포넌트는 context 값이 변경되면 항상 `리랜더링` 될 것입니다.
 

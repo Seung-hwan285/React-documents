@@ -20,9 +20,7 @@ class PostsForm extends Component {
         [e.target.name]:e.target.value
       });
     }
-  
-
-      
+        
     onSubmit(e){
       e.preventDefault();
       const post ={
@@ -45,28 +43,25 @@ class PostsForm extends Component {
 
     render() {
       const {title,body} = this.state;
-      // const {onChange,onSubmit} = this;
+      const {onChange,onSubmit} = this;
 
 
       return (
         <div>
-    
         <selection>
           <h1>React Rest API</h1>
-          <form onSubmit={this.onSubmit}>
+          <form onSubmit={onSubmit}>
             <div>
               <label>title:</label>
-              <input type="text" name="title" value={title} onChange={this.onChange}/>
+              <input type="text" name="title" value={title} onChange={onChange}/>
             </div>
             <div>
               <label>body:</label>
-              <input type="text" name="body" value={body} onChange={this.onChange}/>
+              <input type="text" name="body" value={body} onChange={onSubmit}/>
             </div>
             <div><button type="submit"> Post</button></div>
           </form>
           </selection>
-    
-
         </div>
       );
     }
