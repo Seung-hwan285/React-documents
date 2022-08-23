@@ -16,13 +16,12 @@ function DataFetch(){
     // },[id]);
 
 
-    
     const handler=async()=>{
         let fetchAPI = await fetch(`https://jsonplaceholder.typicode.com/users/${dataButton}`);
         let res = await fetchAPI.json();
         setData(res);
     }
-
+    
 
     const handlerButton=()=>{
         setDataButton(id);
