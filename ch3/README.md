@@ -388,13 +388,11 @@ import React, { useMemo } from 'react';
 import { useState } from 'react';
 const Average=()=>{
 
-
+	
     const [list, setList]=useState([]);
 
     const [number, setNumber]=  useState('');
 
-
-    
     const getAvergae= useMemo(()=>{
         console.log('평균값 계산중');
         
@@ -409,7 +407,7 @@ const Average=()=>{
     const onChange=(e)=>{
         setNumber(e.target.value);
     }
-
+	
     const onInsert=(e)=>{
         const nextList = list.concat(Number(number));
 
@@ -417,16 +415,14 @@ const Average=()=>{
 
         setNumber('');
     };
-
+	
     return(
         <div>
             <input value={number} onChange={onChange}/>
             <button onClick={onInsert}>등록</button>
             <ul>
                 {
-                list.map((value,index)=>(
-
-                            
+                list.map((value,index)=>{
                     <li key={index}>{value}</li>
                     
                 ))}                
@@ -443,10 +439,71 @@ const Average=()=>{
 export default Average;
 ```
 
+정상적으로 이제 글자 입력시에는 `getAvergae` 함수가 작동을 안하고 , 버튼 입력시에만 평균값 계산중이 나오게 됩니다.
+
+
 <br>
 <br>
 
 
+
+
+## 2번째 예제
+공식문서에서는 비싼값을 처리하기 위해 useMemo를 주로 사용한다고 나와 있습니다.
+그럼 비싼값이 무엇일까요?
+
+비싼값이란 쉽게 말해서 값이 높은 것을 뜻하고 이에 맞게 간단한 예제를 만들어봅니다.
+
+```js
+
+import {useCallback, useEffect, useMemo, useState} from "react";
+
+function Counter(){
+
+
+    // useMemo 사용하기 전에 팩토리얼
+    // [x] 리랜더링 버튼을 클릭하면 해당 함수를 같이 불러온다
+
+    const [number,setNumber]= useState(1);
+
+    const [data,setDataBtn] = useState(0);
+
+
+    const f = useMemo(()=>facto(number),[number]);
+
+
+
+    const handlerClick=(e)=>{
+
+        setDataBtn((e)=>e+1);
+        console.log(data);
+    }
+
+					
+    return(
+        <div>
+            <input type="number" value={number} onChange={(e)=>setNumber(e.target.value)}/>
+            <button onClick={handlerClick}>리랜더링</button>
+            {f}
+        </div>
+    )
+
+}
+
+// 1 * 2= 2
+// 1 * 2 * 3=  6
+const facto=(n)=>{
+    console.log('factor render');
+    return n<=0 ? 1 :  n * facto(n-1);
+}
+export default Counter;
+```
+
+현재 코드를 보면 `팩토리얼`함수를 따로 만들어놓고 useMemo를 걸어서  `number` 해당 값이 변경될때만 실행되게 만들어 놓았습니다. 
+만약 `useMemo`를 사용하지 않는다면?
+
+useMemo를 사용하지 않는다고 가정하면 , 리랜더링 버튼을 누를때마다 해당 컴포넌트가 계속 랜더링이 발생하게 됩니다. 
+그래서 불필요한 `팩토리얼` 함수가 계속 실행이 됩니다.
 
 <br>
 <br>
@@ -462,7 +519,7 @@ useMemo는 메모제이션 방식을 사용해서 값을 업데이트를 합니�
 즉 , useEffect로 값을 업데이트 하는 동시에 복잡한 (비싼) 값에 성능을 향상 시키고 싶다면 useMemo를 사용해서 이를 개선할 수 있습니다.
 
 
- 즉 아래와 같은 count1 값을 처리할때는 `useEffect()`보다는 useMemo() 사용을 권장합니다.
+즉 아래와 같은 count1 값을 처리할때는 `useEffect()`보다는 useMemo() 사용을 권장합니다.
 
  
 
@@ -474,7 +531,7 @@ const [expensiveValue, setExpensiveValue] = useState(null);
 useEffect(() => {
     console.log("I am performing expensive computation");
     setExpensiveValue(((count1 * 1000) % 12.4) * 51000 - 4000);
-  }, [count1]);
+  }, [count1]);N
 
 
 
@@ -614,6 +671,14 @@ Render! 버튼을 누르고 로그창을 보면 Ref값은 마운트가 해제되
 
 # useCallback
 
+props로 새 인자가 들어오면 렌더링 되게 되는데,
+불필요한 렌더링이 발생하는걸 방지하기 위해 사용합니다.
+
+실제로는 같은 값일지라도 매번 만들어지는 함수가 다른 prop으로 인식 되기 때 매번 렌더링이 발생하게 되서 useCallback으로 props가 변경되지 않게 만들어 줍니다.
+
+
+자 그럼 콜백함수가 무엇인지 잠깐 알아보겠습니다.
+
 ## Callback 
 콜백함수라는 것은 인자로 함수를 전달하게 되면 콜백함수라 부릅니다.
 그리고 비동기 방식으로 작성된 함수를 동기적으로 실행하기 위해서 리액트에서 자주 쓰입니다.
@@ -661,11 +726,9 @@ const memoizedCallback = useCallback(함수, 배열);
 아래 함수를 상위컴포넌트에서 props로 인해 하위컴포넌트로 계속 불러오게 된다면 , 리랜더링이 발생하여 새로운 함수가 계속 랜더링 됩니다.
 
 ```js
-
 function Component(){
     return num +1;
 }
-
 ```
 
 <br>
@@ -688,74 +751,80 @@ function Component(){
 
 # 실전 예제
 
-useCallback에 대한 예를 명확하게 보기 위해서 앞서 배웠던 `useEffect` , `useMemo`를 의존성 배열에 콜백함수로 전달을 해보았습니다.
 
-이렇게 해서 실행을 해보면 어떤 결과가 나올까요?
+현재 컴포넌트들을 따로 분리했는데 여기서 Todo 버튼을 클릭하면 App 컴포넌트가 전부 리랜더링이 일어나면서 쓸데없는 하위컴포넌트까지 랜더링이 일어납니다.
+이러한 것을 방지하기 위해 먼저 React.memo를 사용해서 컴포넌트들을 매핑해줍니다. 
 
-둘다 의존성 배열에 `값`을 넣는 훅이기 때문에 무슨 짓을 해도 계속 리랜더링이 발생이 됩니다.
+이부분 다시 하기 집가서 코드 추가해야함 ----
+
+잠깐!
+`React.memo` : React.memo는 하위 컴포넌트로 props를 전달할때 props로 인해 변경이 감지되면 랜더링 시키고 변경된게 없으면 랜더링 시키지 않습니다.
+
+그래서 Todo , Number , Counte 컴포넌트에 `React.memo`로 매핑시킵니다. 이렇게 매핑을 시키고 다시 실행을 해보고 Todo 버튼을 클릭해보면 , 
+Todo 컴포넌트와 Counter 컴포넌트만 실행이 됩니다. 
+왜냐하면 현재 React.memo로 props를 감지시키는 행위는 add  , incr , decr로 인해서 해당 함수를 호출하고 있습니다.
+그래서 props로 값이 변경되고 이때 랜더링이 일어납니다.
+
+하지만 이렇게 해도 현재 Todo 컴포넌트 버튼을 클릭하면 Counter 컴포넌트가 실행이 되는 것을 볼 수 있습니다.
+
+이때 사용하는것이 useCallback() 입니다.
+useCallback() 사용한다음 해당 함수를 메모제이션에 담아두어서 함수가 변경되었을때 props로 전달을 해줍니다.
+
+이부분 다시 하기 ----
+
+
+
+
 
 ```js
-import { useState, useEffect, useMemo } from 'react';
+function App() {
 
-const CallbackExample(params) {
 
+    const [number,setNumber] =useState(0);
     
-    const [value,setValue]= useState(0);
-
-
-    const handlerCallback=()=>{
-
-        console.log(`${value}`);
-        return;
-    }
-
-    // useMemo(()=>{
-
-
-    //     console.log('의존성 배열이 변경되었습니다');
-    // },[handlerCallback]);
-
-
-    // useEffect(()=>{
-    //     console.log('의존성 배열이 변경되었습니다');
-    // },[handlerCallback]);
-
-    const handlerClick=(e)=>{
-        setValue(e.target.value);
-    }
-
-
-    return(
+    const [item,setItem]=useState([
+        {
+            id :1,
+            name : 'seung',
+        },
+        {
+            id:2,
+            name : 'hwan',
+        },
+        {
+            id:3,
+            name : 'jeon',
+        }
+    ]);
+    
+    
+    const add=()=>{
+        setItem(item.concat({id : item.id++ , name :'new'}));
+    });
+   
+    const handlerInc=()=>{
+        setNumber((e)=>e+1);
+    });
+    
+    const handlerDec=()=>{
+        setNumber((e)=>e-1);
+    });
+    
+    return (
         <div>
-            <input
-                in="input"
-                type="number"
-                value={value}
-
-                onChange={handlerClick}
-            />
-    
-        <button onClick={handlerCallback}>확인</button>
- 
+            <Theme/>
+            <Todo items={item} add={add}/>
+            <Number number={number}/>
+            <Counter incr={handlerInc} decr={handlerDec}/>
         </div>
-    );
-
+  );
 }
-export default CallbackExample;
+
+
+export default App;
 ```
 
-하지만 아래처럼 `useCallback` 훅을 사용해서 콜백함수를 반환하게 만들어주고 의존성 배열에는 value 값이 변경되게 만들어주면 더이상 리랜더링이 발생하지 않고 `확인`버튼이 눌렀을때만 랜더링이 발생하게 됩니다. 
 
-
-```js
-    const handlerCallback=useCallback(()=>{
-
-
-        console.log(`${value}`);
-
-        return;
-    },[value]);
-```
 
 그리고 useMemo , usecallBack은 랜더링 성능을 높여준다고 알고 있지만 ,
 사실상 반환되는 값이나 함수에 코드가 복잡한 로직이 아니라면 미미하다고 합니다.
@@ -859,7 +928,7 @@ function Counter() {
 
       <br/>
       Name : {name}
-
+		
       <br/>
       <button onClick={() => dispatch ({type: 'decrement'})}>-</button>
       <button onClick={() => dispatch ({type: 'increment'})}>+</button>
