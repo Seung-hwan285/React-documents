@@ -748,81 +748,12 @@ function Component(){
 
 ```
 
+<br>
 
-# 실전 예제
-
-
-현재 컴포넌트들을 따로 분리했는데 여기서 Todo 버튼을 클릭하면 App 컴포넌트가 전부 리랜더링이 일어나면서 쓸데없는 하위컴포넌트까지 랜더링이 일어납니다.
-이러한 것을 방지하기 위해 먼저 React.memo를 사용해서 컴포넌트들을 매핑해줍니다. 
-
-이부분 다시 하기 집가서 코드 추가해야함 ----
-
-잠깐!
 `React.memo` : React.memo는 하위 컴포넌트로 props를 전달할때 props로 인해 변경이 감지되면 랜더링 시키고 변경된게 없으면 랜더링 시키지 않습니다.
 
-그래서 Todo , Number , Counte 컴포넌트에 `React.memo`로 매핑시킵니다. 이렇게 매핑을 시키고 다시 실행을 해보고 Todo 버튼을 클릭해보면 , 
-Todo 컴포넌트와 Counter 컴포넌트만 실행이 됩니다. 
-왜냐하면 현재 React.memo로 props를 감지시키는 행위는 add  , incr , decr로 인해서 해당 함수를 호출하고 있습니다.
-그래서 props로 값이 변경되고 이때 랜더링이 일어납니다.
-
-하지만 이렇게 해도 현재 Todo 컴포넌트 버튼을 클릭하면 Counter 컴포넌트가 실행이 되는 것을 볼 수 있습니다.
-
-이때 사용하는것이 useCallback() 입니다.
-useCallback() 사용한다음 해당 함수를 메모제이션에 담아두어서 함수가 변경되었을때 props로 전달을 해줍니다.
-
-이부분 다시 하기 ----
 
 
-
-
-
-```js
-function App() {
-
-
-    const [number,setNumber] =useState(0);
-    
-    const [item,setItem]=useState([
-        {
-            id :1,
-            name : 'seung',
-        },
-        {
-            id:2,
-            name : 'hwan',
-        },
-        {
-            id:3,
-            name : 'jeon',
-        }
-    ]);
-    
-    
-    const add=()=>{
-        setItem(item.concat({id : item.id++ , name :'new'}));
-    });
-   
-    const handlerInc=()=>{
-        setNumber((e)=>e+1);
-    });
-    
-    const handlerDec=()=>{
-        setNumber((e)=>e-1);
-    });
-    
-    return (
-        <div>
-            <Theme/>
-            <Todo items={item} add={add}/>
-            <Number number={number}/>
-            <Counter incr={handlerInc} decr={handlerDec}/>
-        </div>
-  );
-}
-
-
-export default App;
-```
 
 
 
