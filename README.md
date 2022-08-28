@@ -28,11 +28,5 @@
 - useContext()
 
 
-## [Ch.4](https://github.com/Seung-hwan285/React-documents/tree/master/ch4)
-- React Rest API 
-- Axios
-- SPA
-- Redux
-- Redux Midleware
 
 
