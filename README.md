@@ -1,5 +1,5 @@
 # React 세미나 요약본
-인턴을 하면서 리액트 세미나를 진행한 요약본입니다.
+학교에서 진행한 현장실습 2개월 (인턴)을 하면서 리액트 세미나를 진행한 요약본입니다.
 
 
 ## [Ch.1](https://github.com/Seung-hwan285/react-code/tree/master/ch1) 
