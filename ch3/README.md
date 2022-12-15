@@ -84,9 +84,7 @@ useEffect( function , deps)
 
 
 ## 1. Component가 mount 됐을 때 ( 처음 나타남 )
-
-- 컴포넌트가 화면에 가장 처음 랜더링 될 때 한 번만 실행하고 싶을 때는 deps 위치에 빈 배열을 넣는다.
-
+deps에 아무것도 넣지 않을 경우 랜더링이 일어날때마다 useEffect가 실행이 된다.
 
 <br>
 
